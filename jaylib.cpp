@@ -12,7 +12,7 @@ void Jaylib::drawBand(uint8_t x, uint8_t y, const uint8_t * sprite, uint8_t cols
             sBuffer[p] |= s;
             sBuffer[p + WIDTH] |= s >> 8;
         } else {
-            sBuffer[p] &=~ s;
+            sBuffer[p] &= ~s;
             sBuffer[p + WIDTH] &= ~s >> 8;
         }
     }
@@ -30,7 +30,7 @@ void Jaylib::smallPrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t color
 void Jaylib::largePrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t kern, uint8_t color) {
     char c;
     for(;c = *str ++;) {
-        c &= 0x1F; // Lucky that SPACE % 32 == 0
+        c -= 48;
         drawBand(x, y, PRINTABLE_CHARS_LARGE + 5 * c, 5, color);
         x += 5 + kern;
     }

@@ -1,7 +1,7 @@
 #include "card.h"
 #include "utils.h"
 
-void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
+void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {
     for(int i = 0; i < 18; i++) {
         jay.drawFastVLine(x + i, y, 20, !color);
     }
@@ -13,6 +13,15 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
         jay.drawFastVLine(x, y + 9, 11, 1);
         jay.drawFastVLine(x + 17, y, 20, 1);
     }
+
+    Strength s = {pgm_read_word(&strength)};
+    jay.smallPrint(x, y + 3, itoa(s.w, 16), color);
+    jay.smallPrint(x + 4, y, itoa(s.n, 16), color);
+    jay.smallPrint(x + 8, y + 3, itoa(s.e, 16), color);
+    jay.smallPrint(x + 4, y + 6, itoa(s.s, 16), color);
+
+    if(!draw_art) return;
+
     jay.drawBand(x + 8, y + 10, sprite, 8, color);
 
     Eyes e = {pgm_read_byte(&eyes)};
@@ -26,9 +35,4 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
     //jay.smallPrint(x, y + 25, itoa(e.x), 1);
     //jay.smallPrint(x, y + 31, itoa(e.y), 1);
 
-    Strength s = {pgm_read_word(&strength)};
-    jay.smallPrint(x, y + 3, itoa(s.w, 16), color);
-    jay.smallPrint(x + 4, y, itoa(s.n, 16), color);
-    jay.smallPrint(x + 8, y + 3, itoa(s.e, 16), color);
-    jay.smallPrint(x + 4, y + 6, itoa(s.s, 16), color);
 }

@@ -15,6 +15,8 @@ void setup() {
 
 }
 
+Game game = Game();
+
 void loop() {
     if(!jay.nextFrame()) return;
 
@@ -26,6 +28,14 @@ void loop() {
     if(jay.justPressed(A_BUTTON) || jay.justPressed(B_BUTTON)) {
     }
     */
+
+    if(jay.justPressed(UP_BUTTON)) {
+        game.selection --;
+    }
+
+    if(jay.justPressed(DOWN_BUTTON)) {
+        game.selection ++;
+    }
 
     /*
     CARDS[0].print(jay, 36, 1, 0);
@@ -41,7 +51,6 @@ void loop() {
     CARDS[8].print(jay, 74, 43, 0);
     */
 
-    Game game = Game();
     game.board[0][0] = {1,0};
     game.board[0][1] = {2,1};
     game.board[0][2] = {3,1};
@@ -56,7 +65,7 @@ void loop() {
 
     game.cards[0][0] = 1;
     game.cards[0][1] = 2;
-    game.cards[0][2] = 3;
+    //game.cards[0][2] = 3;
     game.cards[0][3] = 4;
     game.cards[0][4] = 5;
     game.print(jay);
@@ -74,6 +83,8 @@ void loop() {
         jay.drawFastVLine(100, 23, 26, 0);
     }
     */
+
+    jay.largePrint(95, 20, "0123", 1);
 
     jay.display();
 }

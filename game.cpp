@@ -20,8 +20,17 @@ void Game::print(Jaylib &jay) {
     }
     for(int i = 0; i < 5; i++) {
         if(cards[0][i]) {
-            jay.drawFastHLine(1, i * 13, 16, 0);
-            CARDS[cards[0][i]].print(jay, 1, i * 13 + 1, 1);
+            uint8_t selected = turn == 0 && selection == i;
+            jay.drawFastHLine(selected * 4 + 1, i * 12, 18, 0);
+            jay.drawFastVLine(selected * 4 + 19, i * 12, 20, 0);
+            jay.drawFastVLine(selected * 4, i * 12, 20, 0);
+            CARDS[cards[0][i]].print(jay, selected * 4 + 1, i * 12 + 1, 1);
+
+            if(selected) {
+                uint8_t c = (jay.counter / 4) % 4;
+                jay.smallPrint(24 + c, i * 12 + 1, "<", 1);
+            }
         }
     }
+    //jay.largePrint(
 }

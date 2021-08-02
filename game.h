@@ -16,6 +16,7 @@ class Game {
     CardColor board[3][3];
     uint8_t turn;
     uint8_t selection;
+    uint8_t scores[2];
 
     void print(Jaylib &jay);
 };
