@@ -36,10 +36,55 @@ void Jaylib::largePrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t kern,
     }
 }
 
+/*
 void Jaylib::drawFastVLine(uint8_t x, uint8_t y, uint8_t h, uint8_t color) {
     uint8_t i;
     for(i = h; i --;)
         drawPixel(x, y + i, color);
+}
+*/
+
+void Jaylib::drawFastVLine(uint8_t x, uint8_t y, uint8_t h, uint8_t color) {
+    // Crop the line if it's off the bottom edge.
+    if(y + h > HEIGHT)
+        h = HEIGHT - y;
+
+    // The screen is arranged as 8-pixel vertical stripes laid horizontally.
+    uint8_t *pBuf = sBuffer + (y / (HEIGHT / 8)) * WIDTH + x;
+
+    uint8_t mask;
+
+    color = color ? 0xff : 0;
+
+    // Handle the beginning of the line where the first
+    // segment might only partially fill up an 8-pixel block.
+    uint8_t shift = y & 0x7;
+    if(h <= 8 - shift) {
+        mask = ~(0xFF << (h & 0x7)) << shift;
+        if(color) *pBuf |= mask;
+        else *pBuf &= ~mask;
+        return;
+    }
+
+    // Line must reach the end of the block;
+    mask = 0xFF << shift;
+    if(color) *pBuf |= mask;
+    else *pBuf &= ~mask;
+    h -= 8 - shift;
+
+    // Draw all complete 8-pixel segments.
+    for(;h > 8; h-= 8) {
+        pBuf += WIDTH;
+        *pBuf = color;
+    }
+
+    // Handle the case where a partial segment is left over.
+    if(h) {
+        pBuf += WIDTH;
+        mask = 0xff << h;
+        if(color) *pBuf |= ~mask;
+        else *pBuf &= mask;
+    }
 }
 
 void Jaylib::drawFastHLine(uint8_t x, uint8_t y, uint8_t w, uint8_t color) {

@@ -2,6 +2,9 @@
 #include "utils.h"
 
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
+    for(int i = 0; i < 18; i++) {
+        jay.drawFastVLine(x + i, y, 20, !color);
+    }
     if(color) {
         jay.drawFastHLine(x, y, 3, 1);
         jay.drawFastHLine(x + 8, y, 9, 1);
@@ -9,10 +12,6 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
         jay.drawPixel(x, y + 1, 1);
         jay.drawFastVLine(x, y + 9, 11, 1);
         jay.drawFastVLine(x + 17, y, 20, 1);
-    } else {
-        for(int i = 0; i < 18; i++) {
-            jay.drawFastVLine(x + i, y, 20, 1);
-        }
     }
     jay.drawBand(x + 8, y + 10, sprite, 8, color);
 
