@@ -7,14 +7,10 @@ void Game::print(Jaylib &jay) {
             if(cc.card) {
                 CARDS[cc.card].print(jay, i * 19 + 36, j * 21 + 1, cc.color);
             } else {
-                jay.drawFastHLine(i * 19 + 36, j * 21 + 1, 3, 1);
-                jay.drawFastVLine(i * 19 + 36, j * 21 + 1, 3, 1);
-                jay.drawFastHLine(i * 19 + 51, j * 21 + 1, 3, 1);
-                jay.drawFastVLine(i * 19 + 53, j * 21 + 1, 3, 1);
-                jay.drawFastHLine(i * 19 + 36, j * 21 + 20, 3, 1);
-                jay.drawFastVLine(i * 19 + 36, j * 21 + 18, 3, 1);
-                jay.drawFastHLine(i * 19 + 51, j * 21 + 20, 3, 1);
-                jay.drawFastVLine(i * 19 + 53, j * 21 + 18, 3, 1);
+                jay.drawBand(i * 19 + 36, j * 21 + 1, GLYPH_ANGLES, 3, 1);
+                jay.drawBand(i * 19 + 51, j * 21 + 1, GLYPH_ANGLES + 1, 3, 1);
+                jay.drawBand(i * 19 + 36, j * 21 + 18, GLYPH_ANGLES + 3, 3, 1);
+                jay.drawBand(i * 19 + 51, j * 21 + 18, GLYPH_ANGLES + 4, 3, 1);
             }
         }
     }
@@ -31,6 +27,15 @@ void Game::print(Jaylib &jay) {
                 jay.smallPrint(24 + c, i * 12 + 1, "<", 1);
             }
         }
+
+        if(cards[1][i]) {
+            uint8_t selected = turn == 1 && selection == i;
+            jay.drawFastHLine(selected * -4 + 109, i * 12, 18, 0);
+            jay.drawFastVLine(selected * -4 + 127, i * 12, 20, 0);
+            jay.drawFastVLine(selected * -4 + 108, i * 12, 20, 0);
+            CARDS[cards[1][i]].printBack(jay, selected * -4 + 109, i * 12 + 1, 0);
+        }
     }
-    //jay.largePrint(
+    jay.largePrint(30, 56, itoa(scores[0]), 1);
+    jay.largePrint(93, 56, itoa(scores[1]), 1);
 }

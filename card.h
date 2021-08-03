@@ -27,5 +27,6 @@ class Card {
     uint16_t strength;
     char* name;
 
-    void print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t invert, uint8_t draw_art=1);
+    void print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art=1);
+    void printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color);
 };

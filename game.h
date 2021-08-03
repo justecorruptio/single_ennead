@@ -3,6 +3,7 @@
 #include "jaylib.h"
 #include "card_data.h"
 #include "utils.h"
+#include "glyphs.h"
 
 typedef struct {
     uint8_t card;

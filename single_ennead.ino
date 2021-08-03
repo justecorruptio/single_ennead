@@ -55,7 +55,7 @@ void loop() {
     game.board[0][1] = {2,1};
     game.board[0][2] = {3,1};
 
-    game.board[1][0] = {4,0};
+    //game.board[1][0] = {4,0};
     game.board[1][1] = {5,0};
     game.board[1][2] = {6,1};
 
@@ -68,9 +68,20 @@ void loop() {
     //game.cards[0][2] = 3;
     game.cards[0][3] = 4;
     game.cards[0][4] = 5;
+
+    game.cards[1][0] = 1;
+    game.cards[1][1] = 1;
+    game.cards[1][2] = 1;
+    game.cards[1][3] = 1;
+    game.cards[1][4] = 1;
+
+    game.scores[0] = 3;
+    game.scores[1] = 2;
+
+    game.turn = 1;
+
     game.print(jay);
 
-    jay.smallPrint(100, 1, itoa(jay.cpuLoad()), 1);
     /*
     for(int i =0; i < 2000; i++) {
         jay.drawFastVLine(102, 24, 8, 1);
@@ -84,7 +95,7 @@ void loop() {
     }
     */
 
-    jay.largePrint(95, 20, "0123", 1);
+    jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
 
     jay.display();
 }

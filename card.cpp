@@ -1,5 +1,6 @@
 #include "card.h"
 #include "utils.h"
+#include "glyphs.h"
 
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {
     for(int i = 0; i < 18; i++) {
@@ -35,4 +36,11 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_
     //jay.smallPrint(x, y + 25, itoa(e.x), 1);
     //jay.smallPrint(x, y + 31, itoa(e.y), 1);
 
+}
+
+void Card::printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
+    for(int i = 0; i < 18; i++) {
+        jay.drawFastVLine(x + i, y, 20, !color);
+    }
+    jay.drawBand(x + 2, y + 2, GLYPH_CARD_LOGO, 14, color);
 }
