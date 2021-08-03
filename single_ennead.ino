@@ -5,63 +5,61 @@
 #include "card_data.h"
 
 #include "game.h"
+#include "constants.h"
 
 Jaylib jay;
+Game game = Game();
+uint8_t state = STATE_USER_SELECT;
 
 void setup() {
     jay.boot();
     jay.invert(1);
     jay.clear();
 
+    game = Game();
+    game.start_select(0);
+    game.state = STATE_USER_SELECT;
 }
 
-Game game = Game();
 
 void loop() {
     if(!jay.nextFrame()) return;
 
-    //
-    jay.pollButtons();
     jay.clear();
+    jay.pollButtons();
 
+    switch (state) {
+    case STATE_USER_SELECT:
+        if(jay.justPressed(UP_BUTTON)) game.select_inc(0, -1);
+        if(jay.justPressed(DOWN_BUTTON)) game.select_inc(0, 1);
+        if(jay.justPressed(A_BUTTON)) {
+            game.state = state = STATE_USER_HOVER;
+        }
+        break;
+    case STATE_USER_HOVER:
+        if(jay.justPressed(UP_BUTTON)) game.move_cursor(0, -1);
+        if(jay.justPressed(DOWN_BUTTON)) game.move_cursor(0, 1);
+        if(jay.justPressed(LEFT_BUTTON)) game.move_cursor(-1, 0);
+        if(jay.justPressed(RIGHT_BUTTON)) game.move_cursor(1, 0);
+        if(jay.justPressed(B_BUTTON)) {
+            game.state = state = STATE_USER_SELECT;
+        }
+        break;
+    }
+
+    game.board[0][0] = {1,1};
     /*
-    if(jay.justPressed(A_BUTTON) || jay.justPressed(B_BUTTON)) {
-    }
-    */
-
-    if(jay.justPressed(UP_BUTTON)) {
-        game.selection --;
-    }
-
-    if(jay.justPressed(DOWN_BUTTON)) {
-        game.selection ++;
-    }
-
-    /*
-    CARDS[0].print(jay, 36, 1, 0);
-    CARDS[1].print(jay, 55, 1, 1);
-    CARDS[2].print(jay, 74, 1, 0);
-
-    CARDS[3].print(jay, 36, 22, 1);
-    CARDS[4].print(jay, 55, 22, 0);
-    CARDS[5].print(jay, 74, 22, 0);
-
-    CARDS[6].print(jay, 36, 43, 0);
-    CARDS[7].print(jay, 55, 43, 0);
-    CARDS[8].print(jay, 74, 43, 0);
-    */
-
-    game.board[0][0] = {1,0};
     game.board[0][1] = {2,1};
     game.board[0][2] = {3,1};
 
-    //game.board[1][0] = {4,0};
+    game.board[1][0] = {4,0};
     game.board[1][1] = {5,0};
     game.board[1][2] = {6,1};
 
     game.board[2][0] = {7,0};
     game.board[2][1] = {8,1};
     game.board[2][2] = {9,0};
+    */
 
     game.cards[0][0] = 1;
     game.cards[0][1] = 2;
@@ -78,7 +76,7 @@ void loop() {
     game.scores[0] = 3;
     game.scores[1] = 2;
 
-    game.turn = 1;
+    //game.turn = 1;
 
     game.print(jay);
 
