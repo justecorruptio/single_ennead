@@ -1,8 +1,8 @@
 #include "game.h"
 
-void Game::start_select(uint8_t player) {
+void Game::start_select() {
     for(int i = 0; i < 5; i++){
-        if(cards[player][i]){
+        if(cards[turn][i]){
             selection = i;
             return;
         }
@@ -10,10 +10,10 @@ void Game::start_select(uint8_t player) {
 }
 
 
-void Game::select_inc(uint8_t player, int8_t step) {
+void Game::select_inc(int8_t step) {
     for(int i = 1; i < 5; i++){
         uint8_t n = (selection + step * i + 5) % 5;
-        if(cards[player][n]) {
+        if(cards[turn][n]) {
             selection = n;
             return;
         }
@@ -23,6 +23,25 @@ void Game::select_inc(uint8_t player, int8_t step) {
 void Game::move_cursor(int8_t x, int8_t y) {
     cursor.x = (cursor.x + x + 3) % 3;
     cursor.y = (cursor.y + y + 3) % 3;
+}
+
+uint8_t Game::play() {
+    uint8_t x = cursor.x, y = cursor.y;
+    if(board[x][y].card) return 0;
+
+    board[x][y] = {cards[turn][selection], 1 - turn};
+    cards[turn][selection] = 0;
+
+    int i = 0;
+    Strength my_s = {pgm_read_word(&((CARDS + board[x][y].card)->strength))};
+
+    if(x < 2 && board[x][y].color != board[x + 1][y].color){
+        Strength their_s = {pgm_read_word(&((CARDS + board[x+1][y].card)->strength))};
+        if (my_s.e > their_s.w) {
+            board[x + 1][y].color = board[x][y].color;
+        }
+    }
+    return 1;
 }
 
 void Game::print(Jaylib &jay) {

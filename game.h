@@ -1,6 +1,7 @@
 #pragma once
 
 #include "jaylib.h"
+#include "card.h"
 #include "card_data.h"
 #include "utils.h"
 #include "glyphs.h"
@@ -16,6 +17,11 @@ typedef struct {
     int8_t y;
 } Pos;
 
+typedef struct {
+    Pos pos;
+    uint8_t dir; //0 is null, 1234=WNES
+} Wipe;
+
 class Game {
 
     public:
@@ -29,11 +35,14 @@ class Game {
 
     uint8_t scores[2];
     Pos cursor;
+    Wipe wipes[5];
 
     void print(Jaylib &jay);
 
-    void start_select(uint8_t player);
-    void select_inc(uint8_t player, int8_t step=1);
+    void start_select();
+    void select_inc(int8_t step=1);
 
     void move_cursor(int8_t x, int8_t y);
+
+    uint8_t play();
 };

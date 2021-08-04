@@ -17,8 +17,29 @@ void setup() {
     jay.clear();
 
     game = Game();
-    game.start_select(0);
+    game.start_select();
     game.state = STATE_USER_SELECT;
+
+    game.board[0][0] = {1,1};
+    game.board[2][0] = {4,0};
+    game.board[2][1] = {2,0};
+
+    game.cards[0][0] = 1;
+    game.cards[0][1] = 2;
+    //game.cards[0][2] = 3;
+    game.cards[0][3] = 4;
+    game.cards[0][4] = 5;
+
+    game.cards[1][0] = 0;
+    game.cards[1][1] = 1;
+    game.cards[1][2] = 1;
+    game.cards[1][3] = 1;
+    game.cards[1][4] = 1;
+
+    game.scores[0] = 3;
+    game.scores[1] = 2;
+
+    //game.turn = 1;
 }
 
 
@@ -30,8 +51,8 @@ void loop() {
 
     switch (state) {
     case STATE_USER_SELECT:
-        if(jay.justPressed(UP_BUTTON)) game.select_inc(0, -1);
-        if(jay.justPressed(DOWN_BUTTON)) game.select_inc(0, 1);
+        if(jay.justPressed(UP_BUTTON)) game.select_inc(-1);
+        if(jay.justPressed(DOWN_BUTTON)) game.select_inc(1);
         if(jay.justPressed(A_BUTTON)) {
             game.state = state = STATE_USER_HOVER;
         }
@@ -41,42 +62,15 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) game.move_cursor(0, 1);
         if(jay.justPressed(LEFT_BUTTON)) game.move_cursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) game.move_cursor(1, 0);
+        if(jay.justPressed(A_BUTTON)) {
+            game.play();
+        }
         if(jay.justPressed(B_BUTTON)) {
             game.state = state = STATE_USER_SELECT;
         }
         break;
     }
 
-    game.board[0][0] = {1,1};
-    /*
-    game.board[0][1] = {2,1};
-    game.board[0][2] = {3,1};
-
-    game.board[1][0] = {4,0};
-    game.board[1][1] = {5,0};
-    game.board[1][2] = {6,1};
-
-    game.board[2][0] = {7,0};
-    game.board[2][1] = {8,1};
-    game.board[2][2] = {9,0};
-    */
-
-    game.cards[0][0] = 1;
-    game.cards[0][1] = 2;
-    //game.cards[0][2] = 3;
-    game.cards[0][3] = 4;
-    game.cards[0][4] = 5;
-
-    game.cards[1][0] = 1;
-    game.cards[1][1] = 1;
-    game.cards[1][2] = 1;
-    game.cards[1][3] = 1;
-    game.cards[1][4] = 1;
-
-    game.scores[0] = 3;
-    game.scores[1] = 2;
-
-    //game.turn = 1;
 
     game.print(jay);
 
