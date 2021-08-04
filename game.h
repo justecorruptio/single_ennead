@@ -46,6 +46,7 @@ class Game {
 
     uint8_t play();
 
+    void ai_find_move();
 };
 
 PROGMEM const Pos tonari[4] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};

@@ -39,7 +39,8 @@ uint8_t Game::play() {
     for(int i = 0; i < 4; i++ ){
         int8_t dx = x + pgm_read_byte(&(tonari[i].x));
         int8_t dy = y + pgm_read_byte(&(tonari[i].y));
-        if(dx < 0 && dy < 0 && dx > 2 && dy >  2) continue;
+        if(dx < 0 || dy < 0 || dx > 2 || dy >  2) continue;
+        if(board[dx][dy].card == 0) continue;
         if(color == board[dx][dy].color) continue;
 
         Strength their_s = CARDS[board[dx][dy].card].strength();
@@ -49,6 +50,39 @@ uint8_t Game::play() {
     }
 
     return 1;
+}
+
+void Game::ai_find_move() { //set cursor and selection
+    uint8_t color = 1 - turn;
+    int8_t best_flips = -1;
+
+    for(int idx = 0; idx < 5; idx ++) {
+        if (cards[turn][idx] == 0) continue;
+        Strength my_s = CARDS[cards[turn][idx]].strength();
+        for(int x = 0; x < 3; x++) {
+            for(int y = 0; y < 3; y++) {
+                if(board[x][y].card) continue;
+                int8_t flips = 0;
+                for(int i = 0; i < 4; i++ ){
+                    int8_t dx = x + pgm_read_byte(&(tonari[i].x));
+                    int8_t dy = y + pgm_read_byte(&(tonari[i].y));
+                    if(dx < 0 || dy < 0 || dx > 2 || dy >  2) continue;
+                    if(board[dx][dy].card == 0) continue;
+                    if(color == board[dx][dy].color) continue;
+
+                    Strength their_s = CARDS[board[dx][dy].card].strength();
+                    if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
+                        flips ++;
+                    }
+                }
+                if (flips > best_flips) {
+                    cursor = {x, y};
+                    selection = idx;
+                    best_flips = flips;
+                }
+            }
+        }
+    }
 }
 
 void Game::print(Jaylib &jay) {
