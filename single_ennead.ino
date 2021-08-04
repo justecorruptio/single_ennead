@@ -51,12 +51,12 @@ void setup() {
     game.cards[1][3] = 4;
     game.cards[1][4] = 5;
 
-    game.scores[0] = 3;
-    game.scores[1] = 2;
-
     //game.turn = 1;
 }
 
+// animation vars;
+uint16_t accum = 0;
+uint8_t temp = 0;
 
 void loop() {
     if(!jay.nextFrame()) return;
@@ -82,17 +82,24 @@ void loop() {
             if(success) {
                 game.turn = 1 - game.turn;
                 game.ai_find_move();
-                //game.cursor= {0, 0};
-                //game.selection = 0;
-                game.play();
-
-                game.turn = 1 - game.turn;
-                game.start_select();
-                //game.state = state = STATE_ENEMY_SELECT;
-                game.state = state = STATE_USER_SELECT;
+                game.state = state = STATE_ENEMY_SELECT;
+                temp = game.selection;
+                accum = 0;
             }
         }
         if(jay.justPressed(B_BUTTON)) {
+            game.state = state = STATE_USER_SELECT;
+        }
+        break;
+    case STATE_ENEMY_SELECT:
+        if(jay.counter % 16 == 0) {
+            accum ++;
+            game.select_inc();
+        }
+        if (accum > 5 && game.selection == temp) {
+            game.play();
+            game.turn = 1 - game.turn;
+            game.start_select();
             game.state = state = STATE_USER_SELECT;
         }
         break;

@@ -33,6 +33,7 @@ uint8_t Game::play() {
 
     board[x][y] = {cards[turn][selection], color};
     cards[turn][selection] = 0;
+    scores[turn] += 1;
 
     Strength my_s = CARDS[board[x][y].card].strength();
 
@@ -46,6 +47,8 @@ uint8_t Game::play() {
         Strength their_s = CARDS[board[dx][dy].card].strength();
         if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
             board[dx][dy].color = color;
+            scores[turn] += 1;
+            scores[1 - turn] -= 1;
         }
     }
 
