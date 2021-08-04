@@ -29,18 +29,25 @@ uint8_t Game::play() {
     uint8_t x = cursor.x, y = cursor.y;
     if(board[x][y].card) return 0;
 
-    board[x][y] = {cards[turn][selection], 1 - turn};
+    uint8_t color = 1 - turn;
+
+    board[x][y] = {cards[turn][selection], color};
     cards[turn][selection] = 0;
 
-    int i = 0;
-    Strength my_s = {pgm_read_word(&((CARDS + board[x][y].card)->strength))};
+    Strength my_s = CARDS[board[x][y].card].strength();
 
-    if(x < 2 && board[x][y].color != board[x + 1][y].color){
-        Strength their_s = {pgm_read_word(&((CARDS + board[x+1][y].card)->strength))};
-        if (my_s.e > their_s.w) {
-            board[x + 1][y].color = board[x][y].color;
+    for(int i = 0; i < 4; i++ ){
+        int8_t dx = x + pgm_read_byte(&(tonari[i].x));
+        int8_t dy = y + pgm_read_byte(&(tonari[i].y));
+        if(dx < 0 && dy < 0 && dx > 2 && dy >  2) continue;
+        if(color == board[dx][dy].color) continue;
+
+        Strength their_s = CARDS[board[dx][dy].card].strength();
+        if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
+            board[dx][dy].color = color;
         }
     }
+
     return 1;
 }
 
@@ -72,7 +79,6 @@ void Game::print(Jaylib &jay) {
             jay.drawPixel(cursor.x * 19 + 35, cursor.y * 21 + i, (c + i) % 3 == 1);
             jay.drawPixel(cursor.x * 19 + 54, cursor.y * 21 + i, (c - i + 100) % 3 == 0);
         }
-        //jay.drawBand(cursor.x * 19 + 38, cursor.y * 21 + 11 + c, GLYPH_CURSOR, 5, 1);
     }
 
     // DISPLAY SELECTIONS
@@ -104,3 +110,5 @@ void Game::print(Jaylib &jay) {
     jay.largePrint(30, 56, itoa(scores[0]), 1);
     jay.largePrint(93, 56, itoa(scores[1]), 1);
 }
+
+

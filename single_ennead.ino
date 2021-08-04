@@ -20,9 +20,10 @@ void setup() {
     game.start_select();
     game.state = STATE_USER_SELECT;
 
-    game.board[0][0] = {1,1};
-    game.board[2][0] = {4,0};
     game.board[2][1] = {2,0};
+    game.board[1][2] = {4,0};
+    game.board[1][0] = {4,0};
+    game.board[0][1] = {4,0};
 
     game.cards[0][0] = 1;
     game.cards[0][1] = 2;

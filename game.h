@@ -45,4 +45,7 @@ class Game {
     void move_cursor(int8_t x, int8_t y);
 
     uint8_t play();
+
 };
+
+PROGMEM const Pos tonari[4] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};

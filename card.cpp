@@ -2,6 +2,10 @@
 #include "utils.h"
 #include "glyphs.h"
 
+Strength Card::strength() {
+    return {pgm_read_word(&_strength)};
+}
+
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {
     for(int i = 0; i < 18; i++) {
         jay.drawFastVLine(x + i, y, 20, !color);
@@ -15,7 +19,7 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_
         jay.drawFastVLine(x + 17, y, 20, 1);
     }
 
-    Strength s = {pgm_read_word(&strength)};
+    Strength s = strength();
     jay.smallPrint(x, y + 3, itoa(s.w, 16), color);
     jay.smallPrint(x + 4, y, itoa(s.n, 16), color);
     jay.smallPrint(x + 8, y + 3, itoa(s.e, 16), color);
