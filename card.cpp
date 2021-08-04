@@ -18,6 +18,10 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_
         jay.drawFastVLine(x, y + 9, 11, 1);
         jay.drawFastVLine(x + 17, y, 20, 1);
     }
+    jay.drawPixel(x, y, 0);
+    jay.drawPixel(x + 17, y, 0);
+    jay.drawPixel(x, y + 19, 0);
+    jay.drawPixel(x + 17, y + 19, 0);
 
     Strength s = strength();
     jay.smallPrint(x, y + 3, itoa(s.w, 16), color);
@@ -46,5 +50,9 @@ void Card::printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {
     for(int i = 0; i < 18; i++) {
         jay.drawFastVLine(x + i, y, 20, !color);
     }
+    jay.drawPixel(x, y, 0);
+    jay.drawPixel(x + 17, y, 0);
+    jay.drawPixel(x, y + 19, 0);
+    jay.drawPixel(x + 17, y + 19, 0);
     jay.drawBand(x + 2, y + 2, GLYPH_CARD_LOGO, 14, color);
 }
