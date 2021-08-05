@@ -13,11 +13,6 @@ typedef struct {
 } CardColor;
 
 typedef struct {
-    int8_t x;
-    int8_t y;
-} Pos;
-
-typedef struct {
     Pos pos;
     uint8_t dir; //0 is null, 1234=WNES
 } Wipe;
@@ -39,10 +34,10 @@ class Game {
 
     void print(Jaylib &jay);
 
-    void start_select();
+    void startSelect();
     void select_inc(int8_t step=1);
 
-    void move_cursor(int8_t x, int8_t y);
+    void moveCursor(int8_t x, int8_t y);
 
     uint8_t play();
 

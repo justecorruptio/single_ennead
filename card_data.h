@@ -7,6 +7,8 @@
 
 PROGMEM const Card CARDS [] = {
     CC(00,00,00,00,00,00,00,00, 00,0000, "Null"),
+
+    // 01 - 10
     CC(38,47,82,84,84,82,47,38, 24,1234, "Cat"),
     CC(76,89,8d,81,8e,81,4d,32, 25,567A, "Bunny"),
     CC(38,44,82,81,81,87,49,32, 24,89AA, "Water Sprite"),
@@ -16,7 +18,115 @@ PROGMEM const Card CARDS [] = {
     CC(fc,42,81,41,81,41,82,fc, 23,8888, "Ghost"),
     CC(38,44,82,81,81,81,42,3c, 24,1214, "Slime"),
     CC(7b,c5,c2,84,44,32,0d,03, 14,5538, "Jackal"),
+    CC(3e,45,c3,c2,82,83,45,3e, 24,1839, "Bear"),
 
+    // 11 - 20
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 21 - 30
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 31 - 40
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 41 - 50
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 51 - 60
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 61 - 70
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 71 - 80
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 81 - 90
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+
+    // 91 - 100
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa, "Placeholder"),
 
     CC(00,00,00,00,00,00,00,00, 00,0000, "")
 };

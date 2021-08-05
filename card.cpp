@@ -41,9 +41,6 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_
         jay.drawPixel(x + e.x + 8, y + e.y + 10, color);
         jay.drawPixel(x + e.x + 10, y + e.y + 10, color);
     }
-    //jay.smallPrint(x, y + 25, itoa(e.x), 1);
-    //jay.smallPrint(x, y + 31, itoa(e.y), 1);
-
 }
 
 void Card::printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color) {

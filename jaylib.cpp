@@ -93,6 +93,20 @@ void Jaylib::drawFastHLine(uint8_t x, uint8_t y, uint8_t w, uint8_t color) {
         drawPixel(x + i, y, color);
 }
 
+void Jaylib::drawCursorBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+    uint8_t c = (counter / 4) % 4;
+
+    for(int i=0; i<w; i++) {
+        drawPixel(x + i, y, (c - i + 100) % 3 == 1);
+        drawPixel(x + i, y + h, (c + i) % 3 == 0);
+    }
+    for(int i=0; i<h; i++) {
+        drawPixel(x, y + i, (c + i) % 3 == 1);
+        drawPixel(x + w, y + i, (c - i + 100) % 3 == 0);
+    }
+
+}
+
 void Jaylib::display() {
     counter ++;
     Arduboy2Base::display();

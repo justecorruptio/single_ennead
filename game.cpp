@@ -1,6 +1,6 @@
 #include "game.h"
 
-void Game::start_select() {
+void Game::startSelect() {
     for(int i = 0; i < 5; i++){
         if(cards[turn][i]){
             selection = i;
@@ -20,7 +20,7 @@ void Game::select_inc(int8_t step) {
     }
 }
 
-void Game::move_cursor(int8_t x, int8_t y) {
+void Game::moveCursor(int8_t x, int8_t y) {
     cursor.x = (cursor.x + x + 3) % 3;
     cursor.y = (cursor.y + y + 3) % 3;
 }
@@ -106,16 +106,7 @@ void Game::print(Jaylib &jay) {
 
     // DISPLAY CURSOR
     if(state == STATE_USER_HOVER) {
-        uint8_t c = (jay.counter / 4) % 4;
-
-        for(int i=0; i<20; i++) {
-            jay.drawPixel(cursor.x * 19 + 35 + i, cursor.y * 21, (c - i + 100) % 3 == 1);
-            jay.drawPixel(cursor.x * 19 + 35 + i, cursor.y * 21 + 21, (c + i) % 3 == 0);
-        }
-        for(int i=0; i<22; i++) {
-            jay.drawPixel(cursor.x * 19 + 35, cursor.y * 21 + i, (c + i) % 3 == 1);
-            jay.drawPixel(cursor.x * 19 + 54, cursor.y * 21 + i, (c - i + 100) % 3 == 0);
-        }
+        jay.drawCursorBox(cursor.x * 19 + 35, cursor.y * 21, 19, 21);
     }
 
     // DISPLAY SELECTIONS

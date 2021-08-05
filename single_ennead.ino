@@ -5,11 +5,14 @@
 #include "card_data.h"
 
 #include "game.h"
+#include "collection.h"
 #include "constants.h"
 
 Jaylib jay;
 Game game = Game();
-uint8_t state = STATE_USER_SELECT;
+Collection collection = Collection();
+// uint8_t state = STATE_USER_SELECT;
+uint8_t state = STATE_COLLECTION_INSPECT;
 
 void setup() {
     jay.boot();
@@ -17,33 +20,14 @@ void setup() {
     jay.clear();
 
     game = Game();
-    game.start_select();
+    game.startSelect();
     game.state = STATE_USER_SELECT;
-
-    /*
-    game.board[2][1] = {2,0};
-    game.board[1][2] = {4,0};
-    game.board[1][0] = {4,0};
-    game.board[0][1] = {4,0};
-
-    game.cards[0][0] = 1;
-    game.cards[0][1] = 2;
-    //game.cards[0][2] = 3;
-    game.cards[0][3] = 4;
-    game.cards[0][4] = 5;
-
-    game.cards[1][0] = 0;
-    game.cards[1][1] = 1;
-    game.cards[1][2] = 1;
-    game.cards[1][3] = 1;
-    game.cards[1][4] = 1;
-    */
 
     game.cards[0][0] = 1;
     game.cards[0][1] = 2;
     game.cards[0][2] = 3;
     game.cards[0][3] = 4;
-    game.cards[0][4] = 5;
+    game.cards[0][4] = 10;
 
     game.cards[1][0] = 1;
     game.cards[1][1] = 2;
@@ -73,10 +57,10 @@ void loop() {
         }
         break;
     case STATE_USER_HOVER:
-        if(jay.justPressed(UP_BUTTON)) game.move_cursor(0, -1);
-        if(jay.justPressed(DOWN_BUTTON)) game.move_cursor(0, 1);
-        if(jay.justPressed(LEFT_BUTTON)) game.move_cursor(-1, 0);
-        if(jay.justPressed(RIGHT_BUTTON)) game.move_cursor(1, 0);
+        if(jay.justPressed(UP_BUTTON)) game.moveCursor(0, -1);
+        if(jay.justPressed(DOWN_BUTTON)) game.moveCursor(0, 1);
+        if(jay.justPressed(LEFT_BUTTON)) game.moveCursor(-1, 0);
+        if(jay.justPressed(RIGHT_BUTTON)) game.moveCursor(1, 0);
         if(jay.justPressed(A_BUTTON)) {
             uint8_t success = game.play();
             if(success) {
@@ -96,17 +80,26 @@ void loop() {
             accum ++;
             game.select_inc();
         }
-        if (accum > 5 && game.selection == temp) {
+        if (accum > 3 && game.selection == temp) {
             game.play();
             game.turn = 1 - game.turn;
-            game.start_select();
+            game.startSelect();
             game.state = state = STATE_USER_SELECT;
         }
         break;
+
+    case STATE_COLLECTION_INSPECT:
+        if(jay.justPressed(UP_BUTTON)) collection.moveCursor(0, -1);
+        if(jay.justPressed(DOWN_BUTTON)) collection.moveCursor(0, 1);
+        if(jay.justPressed(LEFT_BUTTON)) collection.moveCursor(-1, 0);
+        if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
+        break;
     }
 
-
-    game.print(jay);
+    if (state >= BOUND_GAME_LOWER && state <= BOUND_GAME_UPPER)
+        game.print(jay);
+    else
+        collection.print(jay);
 
     /*
     for(int i =0; i < 2000; i++) {
