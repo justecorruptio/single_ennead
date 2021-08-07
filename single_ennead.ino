@@ -102,6 +102,8 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) collection.moveCursor(0, 1);
         if(jay.justPressed(LEFT_BUTTON)) collection.moveCursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
+        if(jay.justPressed(A_BUTTON)) collection.selectCard();
+        if(jay.justPressed(B_BUTTON)) collection.deselectCard();
         break;
     }
 
@@ -116,6 +118,7 @@ void loop() {
             break;
         case STATE_COLLECTION_PICKER:
             collection.printPicker(jay);
+            collection.printSelection(jay);
             break;
     }
 
