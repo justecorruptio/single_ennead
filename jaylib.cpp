@@ -19,18 +19,50 @@ void Jaylib::drawBand(uint8_t x, uint8_t y, const uint8_t * sprite, uint8_t cols
 }
 
 void Jaylib::smallPrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t color) {
+    uint8_t x0 = x;
     char c;
     for(;c = *str ++;) {
+        if(c == '\n') {
+            x = x0;
+            y += 6;
+            continue;
+        }
         c -= 32;
         drawBand(x, y, PRINTABLE_CHARS + 3 * c, 3, color);
         x += 4;
     }
 }
 
+void Jaylib::smallPrintWrapped(uint8_t x, uint8_t y, uint8_t w, const uint8_t * str, uint8_t color) {
+    uint8_t x_off = 0;
+    uint8_t y_off = 0;
+    char c;
+    for(;c = *str; str++) {
+        if(c == ' ') {
+            uint8_t* ptr = str + 1;
+            while(*ptr && *ptr != ' ') {
+                ptr ++;
+            }
+            if((ptr - str) * 4 + x_off > w) {
+                x_off = 0;
+                y_off += 6;
+                continue;
+            }
+        } else if(c == '\n') {
+            x_off = 0;
+            y_off += 6;
+            continue;
+        }
+        c -= 32;
+        drawBand(x + x_off, y + y_off, PRINTABLE_CHARS + 3 * c, 3, color);
+        x_off += 4;
+    }
+}
+
 void Jaylib::largePrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t kern, uint8_t color) {
     char c;
     for(;c = *str ++;) {
-        c -= 48;
+        c -= 32;
         drawBand(x, y, PRINTABLE_CHARS_LARGE + 5 * c, 5, color);
         x += 5 + kern;
     }

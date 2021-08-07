@@ -6,6 +6,15 @@ Strength Card::strength() {
     return {pgm_read_word(&_strength)};
 }
 
+char* Card::name() {
+    return (char*) pgm_read_word(&_name);
+}
+
+char* Card::flavor() {
+    char* c = (char*) pgm_read_word(&_flavor);
+    return c ? c: "";
+}
+
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {
     for(int i = 0; i < 18; i++) {
         jay.drawFastVLine(x + i, y, 20, !color);
