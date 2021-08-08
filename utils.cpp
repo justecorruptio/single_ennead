@@ -22,3 +22,10 @@ uint8_t strlen(const uint8_t* s) {
     while(*t) t++;
     return t - s;
 }
+
+uint8_t popcount(uint8_t n) {
+    n = ((n & 0xaa) >> 1) + ((n & 0x55) >> 0);
+    n = ((n & 0xcc) >> 2) + ((n & 0x33) >> 0);
+    n = ((n & 0xf0) >> 4) + ((n & 0x0f) >> 0);
+    return n;
+};

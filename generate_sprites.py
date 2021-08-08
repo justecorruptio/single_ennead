@@ -26,7 +26,7 @@ def get_char(bands, n, width):
 
 def formatted(bands, width):
     s = ''
-    for n in xrange(32, 127, 15 // width):
+    for n in xrange(32, 128, 15 // width):
         s += '    '
         s += ', '.join(
             get_char(bands, n + i, width)

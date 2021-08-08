@@ -88,6 +88,9 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) collection.moveCursor(0, 1);
         if(jay.justPressed(LEFT_BUTTON)) collection.moveCursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
+        if(jay.justPressed(B_BUTTON)) {
+            state = STATE_MAIN_MENU;
+        }
         break;
     case STATE_COLLECTION_PICKER:
         if(jay.justPressed(UP_BUTTON)) collection.moveCursor(0, -1);
@@ -96,11 +99,17 @@ void loop() {
         if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
         if(jay.justPressed(A_BUTTON)) {
             collection.selectCard();
-            if(collection.num_cards == 5) {
+            if(collection.numCards == 5) {
                 state = STATE_COLLECTION_PICK_CONFIRM;
             }
         }
-        if(jay.justPressed(B_BUTTON)) collection.deselectCard();
+        if(jay.justPressed(B_BUTTON)) {
+            if(collection.numCards == 0) {
+                state = STATE_MAIN_MENU;
+            } else {
+                collection.deselectCard();
+            }
+        }
         break;
     case STATE_COLLECTION_PICK_CONFIRM:
         if(jay.justPressed(A_BUTTON)) {
@@ -112,7 +121,20 @@ void loop() {
         }
         break;
     case STATE_MAIN_MENU:
-        main_menu.print(jay);
+        main_menu.print(jay, collection.numCollected());
+        if(main_menu.pan > 0) break;
+        if(jay.justPressed(UP_BUTTON)) main_menu.cursorInc(-1);
+        if(jay.justPressed(DOWN_BUTTON)) main_menu.cursorInc(1);
+        if(jay.justPressed(A_BUTTON)) {
+            switch(main_menu.cursor){
+            case 0:
+                state = STATE_COLLECTION_PICKER;
+                break;
+            case 1:
+                state = STATE_COLLECTION_INSPECT;
+                break;
+            }
+        }
         break;
     }
 
@@ -137,6 +159,7 @@ void loop() {
     }
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
+    //jay.smallPrint(99, 1, itoa(collection.numCollected()), 1);
 
     jay.display();
 }

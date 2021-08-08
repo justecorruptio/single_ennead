@@ -9,11 +9,27 @@ void Collection::init() {
             EEPROM[i + 18] = 0;
         }
         EEPROM[18] = 0xff;
+        EEPROM[19] = 0x04;
+        EEPROM[20] = 0xc1;
+        EEPROM[21] = 0x23;
     }
 }
 
 uint8_t Collection::hasCard(uint8_t n) {
     return (EEPROM[(n / 8) + 18] >> (n % 8)) & 0x1;
+}
+
+uint8_t Collection::numCollected() {
+    uint8_t sum = 0;
+    for(int i = 0; i < 13; i ++) { // E[18] - E[21]
+        sum += popcount(EEPROM[i + 18]);
+    }
+    return sum;
+}
+
+void Collection::resetPicker() {
+    cursor.x = cursor.y = 0;
+    numCards = 0;
 }
 
 void Collection::moveCursor(int8_t x, int8_t y) {
@@ -23,18 +39,18 @@ void Collection::moveCursor(int8_t x, int8_t y) {
 
 void Collection::selectCard() {
     uint8_t pos = cursor.x * 10 + cursor.y;
-    if (num_cards == 5) return;
+    if (numCards == 5) return;
     if (!hasCard(pos)) return;
 
-    for(int i = 0; i < num_cards; i++) {
+    for(int i = 0; i < numCards; i++) {
         if (cards[i] == pos + 1) return;
     }
-    cards[num_cards] = pos + 1;
-    num_cards ++;
+    cards[numCards] = pos + 1;
+    numCards ++;
 }
 
 void Collection::deselectCard() {
-    if(num_cards) num_cards--;
+    if(numCards) numCards--;
 }
 
 void Collection::printMatrix(Jaylib &jay, int8_t x) {
@@ -42,7 +58,7 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
     for(int i = 0; i < 10; i++) {
         for(int j = 0; j < 10; j++) {
             uint8_t selected = 0;
-            for(int k = 0; k < num_cards; k++) {
+            for(int k = 0; k < numCards; k++) {
                 if (cards[k] == i * 10 + j + 1){
                     selected = 1;
                     break;
@@ -56,12 +72,6 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
                 GLYPH_COLLECTION_ICONS + has * 10 + selected * 10 + blink * 4,
                 4 + blink * 2, 1
             );
-            /*
-            if (blink)
-                jay.drawBand(x + i * 5 + 0, j * 6 + 1, GLYPH_COLLECTION_ICONS + has * 10 + 4, 6, 1);
-            else
-                jay.drawBand(x + i * 5 + 1, j * 6 + 2, GLYPH_COLLECTION_ICONS + has * 10, 4, 1);
-            */
         }
     }
 }
@@ -86,7 +96,7 @@ void Collection::printPicker(Jaylib &jay) {
 }
 
 void Collection::printSelection(Jaylib &jay) {
-    for(int i = 0; i < num_cards; i++) {
+    for(int i = 0; i < numCards; i++) {
         if(cards[i]) {
             jay.drawFastHLine(1, i * 12, 18, 0);
             jay.drawFastVLine(19, i * 12, 20, 0);

@@ -5,18 +5,20 @@
 #include "glyphs.h"
 #include "card_data.h"
 
-#define COLLECTION_MAGIC 0xf49d
+#define COLLECTION_MAGIC 0xf49e
 
 class Collection {
 
     public:
     Pos cursor;
     uint8_t cards[5];
-    uint8_t num_cards;
+    uint8_t numCards;
 
     void init();
     uint8_t hasCard(uint8_t n);
+    uint8_t numCollected();
 
+    void resetPicker();
     void moveCursor(int8_t x, int8_t y);
     void selectCard();
     void deselectCard();
