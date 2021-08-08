@@ -7,13 +7,18 @@
 #include "game.h"
 #include "collection.h"
 #include "constants.h"
+#include "main_menu.h"
 
 Jaylib jay;
 Game game = Game();
 Collection collection = Collection();
+MainMenu main_menu = MainMenu();
+
 // uint8_t state = STATE_USER_SELECT;
 //uint8_t state = STATE_COLLECTION_INSPECT;
-uint8_t state = STATE_COLLECTION_PICKER;
+//uint8_t state = STATE_COLLECTION_PICKER;
+uint8_t state = STATE_MAIN_MENU;
+
 
 void setup() {
     jay.boot();
@@ -22,25 +27,10 @@ void setup() {
 
     collection.init();
 
-    game = Game();
-    /*
-    game.startSelect();
-    game.state = STATE_USER_SELECT;
+    main_menu.reset();
 
-    game.cards[0][0] = 1;
-    game.cards[0][1] = 2;
-    game.cards[0][2] = 3;
-    game.cards[0][3] = 4;
-    game.cards[0][4] = 10;
-
-    game.cards[1][0] = 1;
-    game.cards[1][1] = 2;
-    game.cards[1][2] = 3;
-    game.cards[1][3] = 4;
-    game.cards[1][4] = 5;
-    */
-
-    //game.turn = 1;
+    //game.reset();
+    //state = game.state;
 }
 
 // animation vars;
@@ -120,6 +110,10 @@ void loop() {
         if(jay.justPressed(B_BUTTON)) {
             state = STATE_COLLECTION_PICKER;
         }
+        break;
+    case STATE_MAIN_MENU:
+        main_menu.print(jay);
+        break;
     }
 
     switch(state) {
