@@ -37,6 +37,8 @@ class Game {
     void startSelect();
     void select_inc(int8_t step=1);
 
+    void reset(uint8_t* selectedCards);
+
     void moveCursor(int8_t x, int8_t y);
 
     uint8_t play();

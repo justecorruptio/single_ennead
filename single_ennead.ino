@@ -23,6 +23,7 @@ void setup() {
     collection.init();
 
     game = Game();
+    /*
     game.startSelect();
     game.state = STATE_USER_SELECT;
 
@@ -37,6 +38,7 @@ void setup() {
     game.cards[1][2] = 3;
     game.cards[1][3] = 4;
     game.cards[1][4] = 5;
+    */
 
     //game.turn = 1;
 }
@@ -112,6 +114,8 @@ void loop() {
         break;
     case STATE_COLLECTION_PICK_CONFIRM:
         if(jay.justPressed(A_BUTTON)) {
+            game.reset(collection.cards);
+            state = game.state;
         }
         if(jay.justPressed(B_BUTTON)) {
             state = STATE_COLLECTION_PICKER;

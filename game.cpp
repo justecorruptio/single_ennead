@@ -20,6 +20,24 @@ void Game::select_inc(int8_t step) {
     }
 }
 
+void Game::reset(uint8_t* selectedCards) {
+    for(int i = 0; i < 5; i++) {
+        cards[0][i] = selectedCards[i];
+    }
+    cards[1][0] = 1;
+    cards[1][1] = 2;
+    cards[1][2] = 3;
+    cards[1][3] = 4;
+    cards[1][4] = 5;
+
+    startSelect();
+    turn = random(2);
+    if (turn)
+        state = STATE_ENEMY_SELECT;
+    else
+        state = STATE_USER_SELECT;
+}
+
 void Game::moveCursor(int8_t x, int8_t y) {
     cursor.x = (cursor.x + x + 3) % 3;
     cursor.y = (cursor.y + y + 3) % 3;
