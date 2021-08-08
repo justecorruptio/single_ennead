@@ -102,9 +102,20 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) collection.moveCursor(0, 1);
         if(jay.justPressed(LEFT_BUTTON)) collection.moveCursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
-        if(jay.justPressed(A_BUTTON)) collection.selectCard();
+        if(jay.justPressed(A_BUTTON)) {
+            collection.selectCard();
+            if(collection.num_cards == 5) {
+                state = STATE_COLLECTION_PICK_CONFIRM;
+            }
+        }
         if(jay.justPressed(B_BUTTON)) collection.deselectCard();
         break;
+    case STATE_COLLECTION_PICK_CONFIRM:
+        if(jay.justPressed(A_BUTTON)) {
+        }
+        if(jay.justPressed(B_BUTTON)) {
+            state = STATE_COLLECTION_PICKER;
+        }
     }
 
     switch(state) {
@@ -117,23 +128,15 @@ void loop() {
             collection.printInspect(jay);
             break;
         case STATE_COLLECTION_PICKER:
+        case STATE_COLLECTION_PICK_CONFIRM:
             collection.printPicker(jay);
             collection.printSelection(jay);
             break;
     }
 
-    /*
-    for(int i =0; i < 2000; i++) {
-        jay.drawFastVLine(102, 24, 8, 1);
-        jay.drawFastVLine(102, 24, 8, 0);
-
-        jay.drawFastVLine(101, 24, 28, 1);
-        jay.drawFastVLine(101, 24, 26, 0);
-
-        jay.drawFastVLine(100, 22, 28, 1);
-        jay.drawFastVLine(100, 23, 26, 0);
+    if (state == STATE_COLLECTION_PICK_CONFIRM) {
+        jay.drawPrompt("Ready?", 0);
     }
-    */
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
 

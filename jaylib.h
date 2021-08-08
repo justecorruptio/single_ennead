@@ -19,6 +19,7 @@ class Jaylib: public Arduboy2Base {
     void drawFastHLine(uint8_t x, uint8_t y, uint8_t w, uint8_t color=1);
 
     void drawCursorBox(uint8_t x, uint8_t y, uint8_t w, uint8_t h);
+    void drawPrompt(const uint8_t * str, uint8_t color=1);
 
     void display();
 };

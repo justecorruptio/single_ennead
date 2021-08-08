@@ -16,3 +16,9 @@ char * itoa(int16_t x, int base) {
     // Must immediately use this.
     return itoa_buf + i + 1;
 }
+
+uint8_t strlen(const uint8_t* s) {
+    uint8_t* t = s;
+    while(*t) t++;
+    return t - s;
+}
