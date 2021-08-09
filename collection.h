@@ -5,7 +5,7 @@
 #include "glyphs.h"
 #include "card_data.h"
 
-#define COLLECTION_MAGIC 0xf49e
+#define COLLECTION_MAGIC 0xf49f
 
 class Collection {
 
@@ -17,6 +17,9 @@ class Collection {
     void init();
     uint8_t hasCard(uint8_t n);
     uint8_t numCollected();
+
+    uint16_t getMoney();
+    uint16_t cost(uint8_t n);
 
     void resetPicker();
     void moveCursor(int8_t x, int8_t y);

@@ -5,13 +5,18 @@ void Collection::init() {
     if (magic != COLLECTION_MAGIC) {
         EEPROM[17] = (COLLECTION_MAGIC >> 8) & 0xff;
         EEPROM[16] = (COLLECTION_MAGIC >> 0) & 0xff;
-        for(int i = 0; i < 13; i ++) { // E[18] - E[21]
+        for(int i = 0; i < 13; i ++) { // E[18] - E[30]
             EEPROM[i + 18] = 0;
         }
         EEPROM[18] = 0xff;
         EEPROM[19] = 0x04;
         EEPROM[20] = 0xc1;
         EEPROM[21] = 0x23;
+
+        //money
+        uint16_t money = 2958;
+        EEPROM[32] = (money >> 8) & 0xff;
+        EEPROM[31] = (money >> 0) & 0xff;
     }
 }
 
@@ -25,6 +30,15 @@ uint8_t Collection::numCollected() {
         sum += popcount(EEPROM[i + 18]);
     }
     return sum;
+}
+
+uint16_t Collection::getMoney() {
+    return (EEPROM[32] << 8) | EEPROM[31];
+}
+
+uint16_t Collection::cost(uint8_t n) {
+    uint16_t v = n;
+   return ((v * v / 8) * 27 / 64) * v + 1;
 }
 
 void Collection::resetPicker() {
@@ -79,11 +93,24 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
 void Collection::printInspect(Jaylib &jay) {
     printMatrix(jay, 0);
     uint8_t hovered = cursor.x * 10 + cursor.y + 1;
-    CARDS[hovered].print(jay, 78, 1, 1);
     jay.largePrint(53, 1, "#", 1, 1);
     jay.largePrint(53 + 6, 1, itoa(hovered), 1, 1);
-    jay.largePrint(53, 22, CARDS[hovered].name(), 1, 1);
-    jay.smallPrintWrapped(53, 31, 128 - 53, CARDS[hovered].flavor(), 1);
+
+    if(hasCard(hovered)) {
+        CARDS[hovered].print(jay, 78, 1, 1);
+        jay.largePrint(53, 22, CARDS[hovered].name(), 1, 1);
+        jay.smallPrintWrapped(53, 31, 128 - 53, CARDS[hovered].flavor(), 1);
+    } else {
+        CARDS[hovered].printBack(jay, 78, 1, 0);
+        jay.largePrint(53, 22, "????????", 1, 1);
+        jay.largePrint(53, 31, "Worth $", 1, 1);
+        jay.largePrint(95, 31, itoa(cost(hovered)), 1, 1);
+    }
+
+    jay.drawFastVLine(88, 54, 10, 1);
+    jay.drawFastHLine(88, 54, 40, 1);
+    jay.largePrint(90, 56, "$", 1, 1);
+    jay.largePrint(98, 56, itoa(50000), 1, 1);
 }
 
 void Collection::printPicker(Jaylib &jay) {

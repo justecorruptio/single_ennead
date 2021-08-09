@@ -34,7 +34,6 @@ class Card {
     uint8_t sprite[8];
     uint8_t eyes;
     uint16_t _strength;
-    uint16_t _cost;
     char* _name;
     char* _flavor;
 
