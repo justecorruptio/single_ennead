@@ -96,12 +96,12 @@ void Collection::printInspect(Jaylib &jay) {
     jay.largePrint(53, 1, "#", 1, 1);
     jay.largePrint(53 + 6, 1, itoa(hovered), 1, 1);
 
-    if(hasCard(hovered)) {
-        CARDS[hovered].print(jay, 78, 1, 1);
-        jay.largePrint(53, 22, CARDS[hovered].name(), 1, 1);
-        jay.smallPrintWrapped(53, 31, 128 - 53, CARDS[hovered].flavor(), 1);
+    if(hasCard(hovered) || 1) {
+        Card(hovered).print(jay, 78, 1, 1);
+        jay.largePrint(53, 22, Card(hovered).name(), 1, 1);
+        jay.smallPrintWrapped(53, 31, 128 - 53, Card(hovered).flavor(), 1);
     } else {
-        CARDS[hovered].printBack(jay, 78, 1, 0);
+        Card(hovered).printBack(jay, 78, 1, 0);
         jay.largePrint(53, 22, "????????", 1, 1);
         jay.largePrint(53, 31, "Worth $", 1, 1);
         jay.largePrint(95, 31, itoa(cost(hovered)), 1, 1);
@@ -116,10 +116,10 @@ void Collection::printInspect(Jaylib &jay) {
 void Collection::printPicker(Jaylib &jay) {
     printMatrix(jay, 24);
     uint8_t hovered = cursor.x * 10 + cursor.y + 1;
-    CARDS[hovered].print(jay, 77, 10, 1);
+    Card(hovered).print(jay, 77, 10, 1);
     jay.largePrint(77, 1, "#", 1, 1);
     jay.largePrint(77 + 6, 1, itoa(hovered), 1, 1);
-    jay.smallPrint(77, 33, CARDS[hovered].name(), 1);
+    jay.smallPrint(77, 33, Card(hovered).name(), 1);
 }
 
 void Collection::printSelection(Jaylib &jay) {
@@ -128,7 +128,7 @@ void Collection::printSelection(Jaylib &jay) {
             jay.drawFastHLine(1, i * 12, 18, 0);
             jay.drawFastVLine(19, i * 12, 20, 0);
             jay.drawFastVLine(0, i * 12, 20, 0);
-            CARDS[cards[i]].print(jay, 1, i * 12 + 1, 1);
+            Card(cards[i]).print(jay, 1, i * 12 + 1, 1);
         }
     }
 }

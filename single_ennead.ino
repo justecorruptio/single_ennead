@@ -34,7 +34,7 @@ void setup() {
 }
 
 // animation vars;
-uint16_t accum = 0;
+uint8_t accum = 0;
 uint8_t temp = 0;
 
 void loop() {
@@ -113,7 +113,7 @@ void loop() {
         break;
     case STATE_COLLECTION_PICK_CONFIRM:
         if(jay.justPressed(A_BUTTON)) {
-            game.reset(collection.cards);
+            game.reset(collection.cards, collection.numCollected());
             state = game.state;
         }
         if(jay.justPressed(B_BUTTON)) {

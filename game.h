@@ -2,14 +2,13 @@
 
 #include "jaylib.h"
 #include "card.h"
-#include "card_data.h"
 #include "utils.h"
 #include "glyphs.h"
 #include "constants.h"
 
 typedef struct {
-    uint8_t card;
-    uint8_t color;
+    uint8_t card:7;
+    uint8_t color:1;
 } CardColor;
 
 typedef struct {
@@ -24,20 +23,21 @@ class Game {
 
     uint8_t turn;
     uint8_t cards[2][5];
+    uint8_t ai_cards[5];
     CardColor board[3][3];
 
     uint8_t selection;
 
     uint8_t scores[2];
     Pos cursor;
-    Wipe wipes[5];
+    //Wipe wipes[5];
 
     void print(Jaylib &jay);
 
     void startSelect();
     void select_inc(int8_t step=1);
 
-    void reset(uint8_t* selectedCards);
+    void reset(uint8_t* selectedCards, uint8_t numCollected);
 
     void moveCursor(int8_t x, int8_t y);
 

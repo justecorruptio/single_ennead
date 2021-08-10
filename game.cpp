@@ -20,15 +20,29 @@ void Game::select_inc(int8_t step) {
     }
 }
 
-void Game::reset(uint8_t* selectedCards) {
+void Game::reset(uint8_t* selectedCards, uint8_t numCollected) {
+
+    uint8_t min = (numCollected / 10) * 10 + 1;
+    uint8_t max = (numCollected / 10) * 9 + 21;
+    if (max > 100) max = 100;
+
     for(int i = 0; i < 5; i++) {
         cards[0][i] = selectedCards[i];
+
+        uint8_t c;
+        uint8_t found;
+        do {
+            c = random(min, max);
+            found = 0;
+            for(int j = 0; j < i; j++){
+                if(ai_cards[j] == c) {
+                    found = 1;
+                    break;
+                }
+            }
+        } while(found);
+        ai_cards[i] = cards[1][i] = c;
     }
-    cards[1][0] = 1;
-    cards[1][1] = 2;
-    cards[1][2] = 3;
-    cards[1][3] = 4;
-    cards[1][4] = 5;
 
     startSelect();
     turn = random(2);
@@ -53,7 +67,7 @@ uint8_t Game::play() {
     cards[turn][selection] = 0;
     scores[turn] += 1;
 
-    Strength my_s = CARDS[board[x][y].card].strength();
+    Strength my_s = Card(board[x][y].card).strength();
 
     for(int i = 0; i < 4; i++ ){
         int8_t dx = x + pgm_read_byte(&(tonari[i].x));
@@ -62,7 +76,7 @@ uint8_t Game::play() {
         if(board[dx][dy].card == 0) continue;
         if(color == board[dx][dy].color) continue;
 
-        Strength their_s = CARDS[board[dx][dy].card].strength();
+        Strength their_s = Card(board[dx][dy].card).strength();
         if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
             board[dx][dy].color = color;
             scores[turn] += 1;
@@ -79,7 +93,7 @@ void Game::ai_find_move() { //set cursor and selection
 
     for(int idx = 0; idx < 5; idx ++) {
         if (cards[turn][idx] == 0) continue;
-        Strength my_s = CARDS[cards[turn][idx]].strength();
+        Strength my_s = Card(cards[turn][idx]).strength();
         for(int x = 0; x < 3; x++) {
             for(int y = 0; y < 3; y++) {
                 if(board[x][y].card) continue;
@@ -91,7 +105,7 @@ void Game::ai_find_move() { //set cursor and selection
                     if(board[dx][dy].card == 0) continue;
                     if(color == board[dx][dy].color) continue;
 
-                    Strength their_s = CARDS[board[dx][dy].card].strength();
+                    Strength their_s = Card(board[dx][dy].card).strength();
                     if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
                         flips ++;
                     }
@@ -112,7 +126,7 @@ void Game::print(Jaylib &jay) {
         for(int j = 0; j < 3; j ++) {
             CardColor cc = board[i][j];
             if(cc.card) {
-                CARDS[cc.card].print(jay, i * 19 + 36, j * 21 + 1, cc.color);
+                Card(cc.card).print(jay, i * 19 + 36, j * 21 + 1, cc.color);
             } else {
                 jay.drawBand(i * 19 + 36, j * 21 + 1, GLYPH_ANGLES, 3, 1);
                 jay.drawBand(i * 19 + 51, j * 21 + 1, GLYPH_ANGLES + 1, 3, 1);
@@ -134,7 +148,7 @@ void Game::print(Jaylib &jay) {
             jay.drawFastHLine(selected * 4 + 1, i * 12, 18, 0);
             jay.drawFastVLine(selected * 4 + 19, i * 12, 20, 0);
             jay.drawFastVLine(selected * 4, i * 12, 20, 0);
-            CARDS[cards[0][i]].print(jay, selected * 4 + 1, i * 12 + 1, 1);
+            Card(cards[0][i]).print(jay, selected * 4 + 1, i * 12 + 1, 1);
 
             if(selected && state == STATE_USER_SELECT) {
                 uint8_t c = (jay.counter / 4) % 4;
@@ -147,7 +161,7 @@ void Game::print(Jaylib &jay) {
             jay.drawFastHLine(selected * -4 + 109, i * 12, 18, 0);
             jay.drawFastVLine(selected * -4 + 127, i * 12, 20, 0);
             jay.drawFastVLine(selected * -4 + 108, i * 12, 20, 0);
-            CARDS[cards[1][i]].printBack(jay, selected * -4 + 109, i * 12 + 1, 0);
+            Card(cards[1][i]).print(jay, selected * -4 + 109, i * 12 + 1, 0);
         }
     }
 

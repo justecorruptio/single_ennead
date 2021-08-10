@@ -1,8 +1,8 @@
 #include "utils.h"
 
-char itoa_buf[9] = "\0\0\0\0\0\0\0\0";
+char itoa_buf[8] = "\0\0\0\0\0\0\0\0";
 char * itoa(uint16_t x, int base) {
-    uint8_t i = 7;
+    uint8_t i = 6;
     do {
         char c = (x % base) + '0';
         if (c > '9'){
@@ -11,6 +11,7 @@ char * itoa(uint16_t x, int base) {
         itoa_buf[i--] = c;
         x /= base;
     } while(x);
+    itoa_buf[i] = 0;
 
     // Must immediately use this.
     return itoa_buf + i + 1;

@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "jaylib.h"
 #include "glyphs.h"
-#include "card_data.h"
+#include "card.h"
 
 #define COLLECTION_MAGIC 0xf49f
 

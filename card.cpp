@@ -2,17 +2,19 @@
 #include "utils.h"
 #include "glyphs.h"
 
+Card::Card(uint8_t _n) {
+    n = _n;
+}
+
 Strength Card::strength() {
-    return {pgm_read_word(&_strength)};
+    return {pgm_read_word(&(CARDS[n]._strength))};
 }
 
 char* Card::name() {
-    return (char*) pgm_read_word(&_name);
+    return "Name";
 }
-
 char* Card::flavor() {
-    char* c = (char*) pgm_read_word(&_flavor);
-    return c ? c: "";
+    return "Flavor";
 }
 
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {
@@ -40,12 +42,12 @@ void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_
 
     if(!draw_art) return;
 
-    jay.drawBand(x + 8, y + 10, sprite, 8, color);
+    jay.drawBand(x + 8, y + 10, CARDS[n].sprite, 8, color);
 
-    Eyes e = {pgm_read_byte(&eyes)};
+    Eyes e = {pgm_read_byte(&(CARDS[n].eyes))};
     int blink = (jay.counter >> 2) & 0xff;
-    uint8_t blink1= (pgm_read_byte(sprite + 3)* 99 + pgm_read_byte(sprite + 5)) & 0xff;
-    uint8_t blink2= ((blink1 * 51 + pgm_read_byte(sprite + 1)) * 77) & 0xff;
+    uint8_t blink1= (pgm_read_byte(CARDS[n].sprite + 3)* 99 + pgm_read_byte(CARDS[n].sprite + 5)) & 0xff;
+    uint8_t blink2= ((blink1 * 51 + pgm_read_byte(CARDS[n].sprite + 1)) * 77) & 0xff;
     if (blink != blink1 && blink != blink2) {
         jay.drawPixel(x + e.x + 8, y + e.y + 10, color);
         jay.drawPixel(x + e.x + 10, y + e.y + 10, color);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "jaylib.h"
+#include "utils.h"
 
 typedef union {
     uint8_t v;
@@ -29,18 +30,24 @@ typedef union {
     }
 } Strength;
 
-class Card {
+class CardData {
     public:
     uint8_t sprite[8];
     uint8_t eyes;
     uint16_t _strength;
-    char* _name;
-    char* _flavor;
+};
 
-    void print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art=1);
-    void printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color);
+class Card {
+    public:
+    uint8_t n;
 
+    Card(uint8_t n);
     Strength strength();
     char* name();
     char* flavor();
+
+    void print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art=1);
+    void printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color);
 };
+
+#include "card_data.h"
