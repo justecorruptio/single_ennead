@@ -94,16 +94,41 @@ PROGMEM const CardData CARDS [] = {
     CC(70,8e,89,89,8a,9d,72,3c, 15,1111), // The Pope
 
     // 71 - 80
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
+    CC(0e,11,31,51,b1,af,84,78, 12,1111), // Iguana
+    CC(78,84,82,41,41,b1,2e,40, 14,1111), // Alien
+    CC(0e,71,91,d1,51,4f,88,fc, 12,1111), // Puppy
+    CC(30,ce,91,b1,b1,91,ce,30, 22,1111), // Child
+    CC(7e,83,8b,83,87,4f,3f,1e, 15,1111), // Triclops
+    CC(7e,a1,83,a2,82,e3,41,3e, 23,1111), // Hippo
+    CC(02,9f,d1,71,71,d1,9f,02, 22,1111), // Android
+    CC(78,84,84,84,8e,85,45,38, 25,1111), // Apple
+    CC(71,89,87,87,87,8f,8d,71, 25,1111), // Professor
+    CC(70,89,8f,81,85,8f,89,70, 25,1111), // Flask
+
 
     // 81 - 90
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
+    CC(78,84,82,81,85,89,8a,74, 25,1111), // Goo
+    CC(3d,62,a1,e1,21,61,a2,dd, 23,1111), // Floater
+    CC(18,70,dc,82,83,42,22,1d, 33,1111), // Rhino
+    CC(75,8f,88,8c,8c,98,ff,75, 15,1111), // Hermes
+    CC(6e,91,b1,f1,91,be,8c,70, 12,1111), // Boxer
+    CC(0e,11,71,91,b1,a2,85,7b, 12,1111), // Dragonet
+    CC(0c,7b,89,89,89,89,89,7e, 35,1111), // Soldier
+    CC(41,e2,ae,d1,91,d1,91,6e, 32,1111), // Tank
+    CC(40,4e,51,51,d1,b1,8e,78, 22,1111), // Fencer
+    CC(1e,11,d1,91,f1,11,11,1e, 22,1111), // Umbrella
 
     // 91 - 100
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
-    CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER, CC_PLACEHOLDER,
+    CC(3f,61,a1,a1,a1,bf,c2,fc, 12,1111), // Block
+    CC(01,ce,b1,91,41,91,ae,c1, 22,1111), // Elf
+    CC(1e,a1,e2,a2,a1,9e,88,70, 13,1111), // Lynx
+    CC(70,90,fe,a1,a1,f1,91,fe, 32,1111), // Chair
+    CC(70,88,89,8f,88,70,a8,f8, 15,1111), // Submarine
+    CC(1f,21,42,e2,a2,d9,97,60, 13,1111), // Chihuahua
+    CC(01,06,78,89,8e,88,88,70, 35,1111), // Ant
+    CC(20,6e,91,b1,91,91,6e,20, 22,1111), // Snowman
+    CC(e0,a1,ef,51,51,f1,b1,ee, 32,1111), // Cyclist
+    CC(c0,ae,71,91,91,71,ae,c0, 22,1111), // Harpy
 };
 
 PROGMEM const char CARD_NAME_000[] = "Missing No";
