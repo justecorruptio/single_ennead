@@ -11,7 +11,7 @@ Strength Card::strength() {
 }
 
 char* Card::name() {
-    return "Name";
+    return loadPStr(pgm_read_word(CARD_NAMES + n));
 }
 char* Card::flavor() {
     return "Flavor";
