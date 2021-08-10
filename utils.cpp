@@ -11,7 +11,6 @@ char * itoa(uint16_t x, int base) {
         itoa_buf[i--] = c;
         x /= base;
     } while(x);
-    itoa_buf[i] = 0;
 
     // Must immediately use this.
     return itoa_buf + i + 1;
