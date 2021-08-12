@@ -19,7 +19,6 @@ class Collection {
     uint8_t numCollected();
 
     uint16_t getMoney();
-    uint16_t cost(uint8_t n);
 
     void resetPicker();
     void moveCursor(int8_t x, int8_t y);

@@ -36,11 +36,6 @@ uint16_t Collection::getMoney() {
     return (EEPROM[32] << 8) | EEPROM[31];
 }
 
-uint16_t Collection::cost(uint8_t n) {
-    uint16_t v = n;
-   return ((v * v / 8) * 27 / 64) * v + 1;
-}
-
 void Collection::resetPicker() {
     cursor.x = cursor.y = 0;
     numCards = 0;
@@ -93,24 +88,24 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
 void Collection::printInspect(Jaylib &jay) {
     printMatrix(jay, 0);
     uint8_t hovered = cursor.x * 10 + cursor.y + 1;
-    jay.largePrint(53, 1, "#", 1, 1);
-    jay.largePrint(53 + 6, 1, itoa(hovered), 1, 1);
+    jay.largePrint(73, 13, "#", 1, 1);
+    jay.largePrint(73 + 6, 13, itoa(hovered), 1, 1);
 
-    if(hasCard(hovered) || 1) {
-        Card(hovered).print(jay, 78, 1, 1);
-        jay.largePrint(53, 22, Card(hovered).name(), 1, 1);
-        jay.smallPrintWrapped(53, 31, 128 - 53, Card(hovered).flavor(), 1);
+    if(hasCard(hovered) || 1) { // TODO
+        Card(hovered).print(jay, 53, 1, 1);
+        jay.largePrint(53, 23, Card(hovered).name(), 1, 1);
+        jay.smallPrintWrapped(53, 33, 128 - 53, Card(hovered).flavor(), 1);
     } else {
-        Card(hovered).printBack(jay, 78, 1, 0);
-        jay.largePrint(53, 22, "????????", 1, 1);
-        jay.largePrint(53, 31, "Worth $", 1, 1);
-        jay.largePrint(95, 31, itoa(cost(hovered)), 1, 1);
+        Card(hovered).printBack(jay, 53, 1, 0);
+        jay.largePrint(53, 23, "????????", 1, 1);
+        jay.largePrint(53, 33, "Worth $", 1, 1);
+        jay.largePrint(95, 33, itoa(Card(hovered).cost()), 1, 1);
     }
 
-    jay.drawFastVLine(88, 54, 10, 1);
-    jay.drawFastHLine(88, 54, 40, 1);
-    jay.largePrint(90, 56, "$", 1, 1);
-    jay.largePrint(98, 56, itoa(50000), 1, 1);
+    jay.drawFastVLine(88, 0, 10, 1);
+    jay.drawFastHLine(88, 9, 40, 1);
+    jay.largePrint(90, 1, "$", 1, 1);
+    jay.largePrint(98, 1, itoa(50000), 1, 1);
 }
 
 void Collection::printPicker(Jaylib &jay) {

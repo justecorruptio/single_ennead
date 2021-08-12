@@ -1,15 +1,10 @@
 #pragma once
 
 #define CC(a1,a2,a3,a4,a5,a6,a7,a8,e,s,...) \
-    {{0x##a1,0x##a2,0x##a3,0x##a4,0x##a5,0x##a6,0x##a7,0x##a8},0x##e,0x##s,__VA_ARGS__}
-
-#define CC_PLACEHOLDER \
-    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa)
+    {{0x##a1,0x##a2,0x##a3,0x##a4,0x##a5,0x##a6,0x##a7,0x##a8},0x##e,0x##s}
 
 PROGMEM const CardData CARDS [] = {
-    CC_PLACEHOLDER,
-
-    // 01 - 10
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa), // Missing No
     CC(01,06,78,89,8e,88,88,70, 35,1111), // Ant
     CC(1c,22,e1,a1,a1,e1,22,1c, 23,2327), // Mushroom
     CC(78,84,82,81,85,89,8a,74, 25,1111), // Goo
@@ -113,7 +108,6 @@ PROGMEM const CardData CARDS [] = {
 };
 
 PROGMEM const char CARD_NAME_000[] = "Missing No";
-
 PROGMEM const char CARD_NAME_001[] = "Fire Ant";
 PROGMEM const char CARD_NAME_002[] = "Mushroom";
 PROGMEM const char CARD_NAME_003[] = "Goo Monster";
@@ -222,4 +216,115 @@ PROGMEM const char CARD_NAME_100[] = "Azrael";
 PROGMEM char *const CARD_NAMES [] = {
     CN(00), CN(01), CN(02), CN(03), CN(04), CN(05), CN(06), CN(07), CN(08), CN(09),
     CARD_NAME_100,
+};
+
+PROGMEM const char CARD_FLAVOR_000[] = "FLAVOR";
+PROGMEM const char CARD_FLAVOR_001[] = "NASTY, BITEY, ANNOYING IN LARGE NUMBERS";
+PROGMEM const char CARD_FLAVOR_002[] = "THE BRIGHT RED ONES ARE POISONOUS, THIS ONE IS GREEN";
+PROGMEM const char CARD_FLAVOR_003[] = "SLIGHTLY TACKY, USELESS AS AN ADHESIVE";
+PROGMEM const char CARD_FLAVOR_004[] = "NO FEROCIOUS TEETH, NONE AT ALL";
+PROGMEM const char CARD_FLAVOR_005[] = "FLOATS, DOESN'T STING";
+PROGMEM const char CARD_FLAVOR_006[] = "";
+PROGMEM const char CARD_FLAVOR_007[] = "";
+PROGMEM const char CARD_FLAVOR_008[] = "";
+PROGMEM const char CARD_FLAVOR_009[] = "";
+PROGMEM const char CARD_FLAVOR_010[] = "";
+PROGMEM const char CARD_FLAVOR_011[] = "";
+PROGMEM const char CARD_FLAVOR_012[] = "";
+PROGMEM const char CARD_FLAVOR_013[] = "";
+PROGMEM const char CARD_FLAVOR_014[] = "";
+PROGMEM const char CARD_FLAVOR_015[] = "";
+PROGMEM const char CARD_FLAVOR_016[] = "";
+PROGMEM const char CARD_FLAVOR_017[] = "";
+PROGMEM const char CARD_FLAVOR_018[] = "";
+PROGMEM const char CARD_FLAVOR_019[] = "";
+PROGMEM const char CARD_FLAVOR_020[] = "";
+PROGMEM const char CARD_FLAVOR_021[] = "";
+PROGMEM const char CARD_FLAVOR_022[] = "";
+PROGMEM const char CARD_FLAVOR_023[] = "";
+PROGMEM const char CARD_FLAVOR_024[] = "";
+PROGMEM const char CARD_FLAVOR_025[] = "";
+PROGMEM const char CARD_FLAVOR_026[] = "";
+PROGMEM const char CARD_FLAVOR_027[] = "";
+PROGMEM const char CARD_FLAVOR_028[] = "";
+PROGMEM const char CARD_FLAVOR_029[] = "";
+PROGMEM const char CARD_FLAVOR_030[] = "";
+PROGMEM const char CARD_FLAVOR_031[] = "";
+PROGMEM const char CARD_FLAVOR_032[] = "";
+PROGMEM const char CARD_FLAVOR_033[] = "";
+PROGMEM const char CARD_FLAVOR_034[] = "";
+PROGMEM const char CARD_FLAVOR_035[] = "";
+PROGMEM const char CARD_FLAVOR_036[] = "";
+PROGMEM const char CARD_FLAVOR_037[] = "";
+PROGMEM const char CARD_FLAVOR_038[] = "";
+PROGMEM const char CARD_FLAVOR_039[] = "";
+PROGMEM const char CARD_FLAVOR_040[] = "";
+PROGMEM const char CARD_FLAVOR_041[] = "";
+PROGMEM const char CARD_FLAVOR_042[] = "";
+PROGMEM const char CARD_FLAVOR_043[] = "";
+PROGMEM const char CARD_FLAVOR_044[] = "";
+PROGMEM const char CARD_FLAVOR_045[] = "";
+PROGMEM const char CARD_FLAVOR_046[] = "";
+PROGMEM const char CARD_FLAVOR_047[] = "";
+PROGMEM const char CARD_FLAVOR_048[] = "";
+PROGMEM const char CARD_FLAVOR_049[] = "";
+PROGMEM const char CARD_FLAVOR_050[] = "";
+PROGMEM const char CARD_FLAVOR_051[] = "";
+PROGMEM const char CARD_FLAVOR_052[] = "";
+PROGMEM const char CARD_FLAVOR_053[] = "";
+PROGMEM const char CARD_FLAVOR_054[] = "";
+PROGMEM const char CARD_FLAVOR_055[] = "";
+PROGMEM const char CARD_FLAVOR_056[] = "";
+PROGMEM const char CARD_FLAVOR_057[] = "";
+PROGMEM const char CARD_FLAVOR_058[] = "";
+PROGMEM const char CARD_FLAVOR_059[] = "";
+PROGMEM const char CARD_FLAVOR_060[] = "";
+PROGMEM const char CARD_FLAVOR_061[] = "";
+PROGMEM const char CARD_FLAVOR_062[] = "";
+PROGMEM const char CARD_FLAVOR_063[] = "";
+PROGMEM const char CARD_FLAVOR_064[] = "";
+PROGMEM const char CARD_FLAVOR_065[] = "";
+PROGMEM const char CARD_FLAVOR_066[] = "";
+PROGMEM const char CARD_FLAVOR_067[] = "";
+PROGMEM const char CARD_FLAVOR_068[] = "";
+PROGMEM const char CARD_FLAVOR_069[] = "";
+PROGMEM const char CARD_FLAVOR_070[] = "";
+PROGMEM const char CARD_FLAVOR_071[] = "";
+PROGMEM const char CARD_FLAVOR_072[] = "";
+PROGMEM const char CARD_FLAVOR_073[] = "";
+PROGMEM const char CARD_FLAVOR_074[] = "";
+PROGMEM const char CARD_FLAVOR_075[] = "";
+PROGMEM const char CARD_FLAVOR_076[] = "";
+PROGMEM const char CARD_FLAVOR_077[] = "";
+PROGMEM const char CARD_FLAVOR_078[] = "";
+PROGMEM const char CARD_FLAVOR_079[] = "";
+PROGMEM const char CARD_FLAVOR_080[] = "";
+PROGMEM const char CARD_FLAVOR_081[] = "";
+PROGMEM const char CARD_FLAVOR_082[] = "";
+PROGMEM const char CARD_FLAVOR_083[] = "";
+PROGMEM const char CARD_FLAVOR_084[] = "";
+PROGMEM const char CARD_FLAVOR_085[] = "";
+PROGMEM const char CARD_FLAVOR_086[] = "";
+PROGMEM const char CARD_FLAVOR_087[] = "";
+PROGMEM const char CARD_FLAVOR_088[] = "";
+PROGMEM const char CARD_FLAVOR_089[] = "";
+PROGMEM const char CARD_FLAVOR_090[] = "";
+PROGMEM const char CARD_FLAVOR_091[] = "";
+PROGMEM const char CARD_FLAVOR_092[] = "";
+PROGMEM const char CARD_FLAVOR_093[] = "";
+PROGMEM const char CARD_FLAVOR_094[] = "";
+PROGMEM const char CARD_FLAVOR_095[] = "";
+PROGMEM const char CARD_FLAVOR_096[] = "";
+PROGMEM const char CARD_FLAVOR_097[] = "";
+PROGMEM const char CARD_FLAVOR_098[] = "";
+PROGMEM const char CARD_FLAVOR_099[] = "";
+PROGMEM const char CARD_FLAVOR_100[] = "";
+
+#define CF(n) \
+    CARD_FLAVOR_##n##0,CARD_FLAVOR_##n##1,CARD_FLAVOR_##n##2,CARD_FLAVOR_##n##3,CARD_FLAVOR_##n##4, \
+    CARD_FLAVOR_##n##5,CARD_FLAVOR_##n##6,CARD_FLAVOR_##n##7,CARD_FLAVOR_##n##8,CARD_FLAVOR_##n##9
+
+PROGMEM char *const CARD_FLAVORS [] = {
+    CF(00), CF(01), CF(02), CF(03), CF(04), CF(05), CF(06), CF(07), CF(08), CF(09),
+    CARD_FLAVOR_100,
 };

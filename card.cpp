@@ -13,8 +13,18 @@ Strength Card::strength() {
 char* Card::name() {
     return loadPStr(pgm_read_word(CARD_NAMES + n));
 }
+
 char* Card::flavor() {
-    return "Flavor";
+    return loadPStr(pgm_read_word(CARD_FLAVORS + n));
+}
+
+uint16_t Card::cost() {
+    uint16_t v = n;
+    v = ((v * v / 8) * 27 / 64) * v + 1;
+    if(v > 20000) v = v / 1000 * 1000;
+    else if(v > 1000) v = v / 100 * 100;
+    else if(v > 30) v = v / 10 * 10;
+    return v;
 }
 
 void Card::print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art) {

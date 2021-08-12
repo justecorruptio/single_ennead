@@ -45,6 +45,7 @@ class Card {
     Strength strength();
     char* name();
     char* flavor();
+    uint16_t cost();
 
     void print(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color, uint8_t draw_art=1);
     void printBack(Jaylib &jay, uint8_t x, uint8_t y, uint8_t color);

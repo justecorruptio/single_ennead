@@ -27,6 +27,10 @@ void Jaylib::smallPrint(uint8_t x, uint8_t y, const uint8_t * str, uint8_t color
             y += 6;
             continue;
         }
+        if(c == ' ') {
+            x += 2;
+            continue;
+        }
         c -= 32;
         drawBand(x, y, PRINTABLE_CHARS + 3 * c, 3, color);
         x += 4;
@@ -48,6 +52,8 @@ void Jaylib::smallPrintWrapped(uint8_t x, uint8_t y, uint8_t w, const uint8_t * 
                 y_off += 6;
                 continue;
             }
+            x_off += 2;
+            continue;
         } else if(c == '\n') {
             x_off = 0;
             y_off += 6;
