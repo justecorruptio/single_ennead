@@ -28,6 +28,7 @@ void setup() {
     collection.init();
 
     main_menu.reset();
+    jay.initRandomSeed();
 
     //game.reset();
     //state = game.state;
