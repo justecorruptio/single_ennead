@@ -17,7 +17,7 @@ MainMenu main_menu;
 // uint8_t state = STATE_USER_SELECT;
 //uint8_t state = STATE_COLLECTION_INSPECT;
 //uint8_t state = STATE_COLLECTION_PICKER;
-//uint8_t state = STATE_COLLECTION_OUTCOME;
+//uint8_t state = STATE_COLLECTION_RULES;
 uint8_t state = STATE_MAIN_MENU;
 
 void setup() {
@@ -31,6 +31,7 @@ void setup() {
     jay.initRandomSeed();
 
     //collection.deleteCard(99);
+    //collection.setMoney(50000);
 
     /*
     collection.result = 0;
@@ -169,6 +170,23 @@ void loop() {
             state = STATE_COLLECTION_INSPECT;
         }
         break;
+    case STATE_COLLECTION_RULES:
+        if(jay.justPressed(A_BUTTON)) {
+            state = STATE_COLLECTION_RULES_CONFIRM;
+        }
+        if(jay.justPressed(B_BUTTON)) {
+            state = STATE_MAIN_MENU;
+        }
+        break;
+    case STATE_COLLECTION_RULES_CONFIRM:
+        if(jay.justPressed(A_BUTTON)) {
+            collection.spreadRule();
+            state = STATE_COLLECTION_RULES;
+        }
+        if(jay.justPressed(B_BUTTON)) {
+            state = STATE_COLLECTION_RULES;
+        }
+        break;
     case STATE_MAIN_MENU:
         main_menu.print(jay, collection.numCollected());
         if(main_menu.pan > 0) break;
@@ -176,12 +194,9 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) main_menu.cursorInc(1);
         if(jay.justPressed(A_BUTTON)) {
             switch(main_menu.cursor){
-            case 0:
-                state = STATE_COLLECTION_PICKER;
-                break;
-            case 1:
-                state = STATE_COLLECTION_INSPECT;
-                break;
+            case 0: state = STATE_COLLECTION_PICKER; break;
+            case 1: state = STATE_COLLECTION_INSPECT; break;
+            case 2: state = STATE_COLLECTION_RULES; break;
             }
         }
         break;
@@ -206,6 +221,10 @@ void loop() {
         case STATE_COLLECTION_OUTCOME:
             collection.printOutcome(jay);
             break;
+        case STATE_COLLECTION_RULES:
+        case STATE_COLLECTION_RULES_CONFIRM:
+            collection.printRules(jay);
+            break;
     }
 
     if (state == STATE_GAME_OVER) {
@@ -221,7 +240,11 @@ void loop() {
     }
 
     if (state == STATE_COLLECTION_BUY_CONFIRM) {
-        jay.drawPrompt(40, "Buy Card?", 0);
+        jay.drawPrompt(40, "Buy card?", 0);
+    }
+
+    if (state == STATE_COLLECTION_RULES_CONFIRM) {
+        jay.drawPrompt(22, "New rule for $500?", 0);
     }
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);

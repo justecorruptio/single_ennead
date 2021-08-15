@@ -5,6 +5,7 @@
 #include "glyphs.h"
 #include "card.h"
 #include "constants.h"
+#include "rules.h"
 
 #define COLLECTION_MAGIC 0xf493
 
@@ -49,6 +50,7 @@ class Collection {
     Rules getRules();
     void setRule(uint8_t rule);
     uint8_t checkRule(uint8_t rule);
+    void spreadRule();
 
     void resetPicker();
     void moveCursor(int8_t x, int8_t y);
@@ -65,7 +67,10 @@ class Collection {
     void printInspect(Jaylib &jay);
     void printPicker(Jaylib &jay);
     void printMatrix(Jaylib &jay, int8_t x);
+    void printMoney(Jaylib &jay);
 
     void printSelection(Jaylib &jay);
     void printOutcome(Jaylib &jay);
+
+    void printRules(Jaylib &jay);
 };

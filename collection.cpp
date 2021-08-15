@@ -78,6 +78,18 @@ uint8_t Collection::checkRule(uint8_t rule) {
     return ((rules.v >> offset) & 3 ) == (rule & 3);
 }
 
+void Collection::spreadRule() {
+    uint16_t money = getMoney();
+    if(money < 500) return;
+    money -= 500;
+    setMoney(money);
+    uint8_t rule;
+    do {
+        rule = pgm_read_byte(RULES_LIST + random(NUM_RULES));
+    } while(checkRule(rule));
+    setRule(rule);
+}
+
 void Collection::resetPicker() {
     cursor.x = cursor.y = 0;
     numCards = 0;
@@ -199,8 +211,16 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
     }
 }
 
+void Collection::printMoney(Jaylib &jay) {
+    jay.drawFastVLine(88, 0, 10, 1);
+    jay.drawFastHLine(88, 9, 40, 1);
+    jay.largePrint(90, 1, "$", 1, 1);
+    jay.largePrint(98, 1, itoa(getMoney()), 1, 1);
+}
+
 void Collection::printInspect(Jaylib &jay) {
     printMatrix(jay, 0);
+    printMoney(jay);
     uint8_t hovered = cursor.x * 10 + cursor.y + 1;
     jay.largePrint(73, 13, "#", 1, 1);
     jay.largePrint(73 + 6, 13, itoa(hovered), 1, 1);
@@ -215,11 +235,6 @@ void Collection::printInspect(Jaylib &jay) {
         jay.largePrint(53, 33, "Worth $", 1, 1);
         jay.largePrint(95, 33, itoa(Card(hovered).cost()), 1, 1);
     }
-
-    jay.drawFastVLine(88, 0, 10, 1);
-    jay.drawFastHLine(88, 9, 40, 1);
-    jay.largePrint(90, 1, "$", 1, 1);
-    jay.largePrint(98, 1, itoa(getMoney()), 1, 1);
 }
 
 void Collection::printPicker(Jaylib &jay) {
@@ -275,5 +290,17 @@ void Collection::printOutcome(Jaylib &jay) {
 
         jay.largePrint(19, 34, "  Payout: $", 1, 1);
         jay.largePrint(85, 34, itoa(payout), 1, 1);
+    }
+}
+
+void Collection::printRules(Jaylib &jay) {
+    printMoney(jay);
+    jay.largePrint(1, 1, "Active Rules", 1, 1);
+    jay.drawFastHLine(0, 9, 128, 1);
+
+    Rules rules = getRules();
+    for(int i = 0; i < 7; i++){
+        char * str = loadPStr(pgm_read_word(&RULE_STRINGS[i][(rules.v >> (i * 2)) & 3]));
+        jay.smallPrint(12, i * 7 + 12, str, 1);
     }
 }
