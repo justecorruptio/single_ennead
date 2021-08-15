@@ -43,6 +43,7 @@ class Game {
 
     uint8_t play();
     uint8_t isOver();
+    int8_t result(); // -1 = lose, 0 = draw, 1 = win
 
     void ai_find_move();
 };

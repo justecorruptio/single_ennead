@@ -150,15 +150,15 @@ void Jaylib::display() {
     Arduboy2Base::display();
 }
 
-void Jaylib::drawPrompt(const uint8_t * str, uint8_t color=1) {
+void Jaylib::drawPrompt(uint8_t y, const uint8_t * str, uint8_t color=1) {
     uint8_t w = strlen(str) * 6 - 1;
     uint8_t x = (128 - w) / 2;
     for(int i = x - 4; i < x + w + 4; i++) {
-        drawFastVLine(i, 23, 15, !color);
+        drawFastVLine(i, y + 1, 15, !color);
     }
-    drawFastVLine(x - 5, 22, 17, color);
-    drawFastVLine(x + w + 4, 22, 17, color);
-    drawFastHLine(x - 5, 22, w + 6, color);
-    drawFastHLine(x - 5, 38, w + 6, color);
-    largePrint(x, 27, str, 1, color);
+    drawFastVLine(x - 5, y, 17, color);
+    drawFastVLine(x + w + 4, y, 17, color);
+    drawFastHLine(x - 5, y, w + 6, color);
+    drawFastHLine(x - 5, y + 16, w + 6, color);
+    largePrint(x, y + 5, str, 1, color);
 }

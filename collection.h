@@ -30,6 +30,10 @@ class Collection {
     uint8_t cards[5];
     uint8_t numCards;
 
+    uint16_t payout;
+    uint16_t winCard;
+    uint16_t loseCard;
+
     void init();
     uint8_t hasCard(uint8_t n);
     uint8_t numCollected();

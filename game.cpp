@@ -96,6 +96,11 @@ uint8_t Game::isOver() {
     );
 }
 
+int8_t Game::result() {
+    int8_t d = scores[0] - scores[1];
+    return (d > 0) - (d < 0);
+}
+
 void Game::ai_find_move() { //set cursor and selection
     uint8_t color = 1 - turn;
     int8_t best_flips = -1;
@@ -178,4 +183,5 @@ void Game::print(Jaylib &jay) {
     jay.largePrint(30, 56, itoa(scores[0]), 1);
     jay.largePrint(93, 56, itoa(scores[1]), 1);
 }
+
 

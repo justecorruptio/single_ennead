@@ -60,6 +60,10 @@ void loop() {
         if(jay.justPressed(A_BUTTON)) {
             uint8_t success = game.play();
             if(success) {
+                if(game.isOver()) {
+                    state = STATE_GAME_OVER;
+                    break;
+                }
                 game.turn = 1 - game.turn;
                 game.ai_find_move();
                 game.state = state = STATE_ENEMY_SELECT;
@@ -78,10 +82,17 @@ void loop() {
         }
         if (accum > 3 && game.selection == temp) {
             game.play();
+            if(game.isOver()) {
+                state = STATE_GAME_OVER;
+                break;
+            }
             game.turn = 1 - game.turn;
             game.startSelect();
             game.state = state = STATE_USER_SELECT;
         }
+        break;
+
+    case STATE_GAME_OVER:
         break;
 
     case STATE_COLLECTION_INSPECT:
@@ -143,6 +154,7 @@ void loop() {
         case STATE_USER_SELECT:
         case STATE_USER_HOVER:
         case STATE_ENEMY_SELECT:
+        case STATE_GAME_OVER:
             game.print(jay);
             break;
         case STATE_COLLECTION_INSPECT:
@@ -155,8 +167,16 @@ void loop() {
             break;
     }
 
+    if (state == STATE_GAME_OVER) {
+        switch(game.result()) {
+        case -1: jay.drawPrompt(14, "You Lose", 0); break;
+        case 0: jay.drawPrompt(14, "Draw", 0); break;
+        case 1: jay.drawPrompt(14, "You Win", 0); break;
+        }
+    }
+
     if (state == STATE_COLLECTION_PICK_CONFIRM) {
-        jay.drawPrompt("Ready?", 0);
+        jay.drawPrompt(22, "Ready?", 0);
     }
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
