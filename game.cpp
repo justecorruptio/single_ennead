@@ -61,7 +61,7 @@ void Game::moveCursor(int8_t x, int8_t y) {
     cursor.y = (cursor.y + y + 3) % 3;
 }
 
-uint8_t Game::play() {
+uint8_t Game::play(Collection &collection) {
     uint8_t x = cursor.x, y = cursor.y;
     if(board[x][y].card) return 0;
 
@@ -80,7 +80,27 @@ uint8_t Game::play() {
         if(color == board[dx][dy].color) continue;
 
         Strength their_s = Card(board[dx][dy].card).strength();
-        if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
+        uint8_t captures = 0;
+        if(
+            collection.checkRule(RULE_CAPTURE_NORMAL) &&
+            my_s.dir(i) > their_s.dir((i + 2) % 4)
+        )
+            captures = 1;
+        else if (
+            collection.checkRule(RULE_CAPTURE_FALLEN_ACE) &&
+            (
+                my_s.dir(i) > their_s.dir((i + 2) % 4) ||
+                (my_s.dir(i) == 1 && their_s.dir((i + 2) % 4) == 10)
+            )
+        )
+            captures = 1;
+        else if(
+            collection.checkRule(RULE_CAPTURE_ATTACKER) &&
+            my_s.dir(i) >= their_s.dir((i + 2) % 4)
+        )
+            captures = 1;
+
+        if(captures) {
             board[dx][dy].color = color;
             scores[turn] += 1;
             scores[1 - turn] -= 1;
@@ -123,7 +143,28 @@ void Game::ai_find_move(Collection &collection) { //set cursor and selection
                     if(color == board[dx][dy].color) continue;
 
                     Strength their_s = Card(board[dx][dy].card).strength();
-                    if(my_s.dir(i) > their_s.dir((i + 2) % 4)) {
+
+                    uint8_t captures = 0;
+                    if(
+                        collection.checkRule(RULE_CAPTURE_NORMAL) &&
+                        my_s.dir(i) > their_s.dir((i + 2) % 4)
+                    )
+                        captures = 1;
+                    else if (
+                        collection.checkRule(RULE_CAPTURE_FALLEN_ACE) &&
+                        (
+                            my_s.dir(i) > their_s.dir((i + 2) % 4) ||
+                            (my_s.dir(i) == 1 && their_s.dir((i + 2) % 4) == 10)
+                        )
+                    )
+                        captures = 1;
+                    else if(
+                        collection.checkRule(RULE_CAPTURE_ATTACKER) &&
+                        my_s.dir(i) >= their_s.dir((i + 2) % 4)
+                    )
+                        captures = 1;
+
+                    if(captures) {
                         flips ++;
                     }
                 }

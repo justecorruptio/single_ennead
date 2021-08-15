@@ -43,7 +43,7 @@ class Game {
 
     void moveCursor(int8_t x, int8_t y);
 
-    uint8_t play();
+    uint8_t play(Collection &collection);
     uint8_t isOver();
     int8_t result(); // -1 = lose, 0 = draw, 1 = win
 

@@ -326,6 +326,6 @@ void Collection::printRules(Jaylib &jay) {
     Rules rules = getRules();
     for(int i = 0; i < 6; i++){
         char * str = loadPStr(pgm_read_word(&RULE_STRINGS[i][(rules.v >> (i * 2)) & 3]));
-        jay.smallPrint(12, i * 7 + 12, str, 1);
+        jay.largePrint(12, i * 9 + 11, str, 1);
     }
 }

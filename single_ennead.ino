@@ -32,7 +32,7 @@ void setup() {
 
     //collection.deleteCard(99);
     //collection.setMoney(50000);
-    collection.setRule(RULE_PLAY_RANDOM);
+    collection.setRule(RULE_CAPTURE_FALLEN_ACE);
 
     /*
     collection.result = 0;
@@ -70,7 +70,7 @@ void loop() {
         if(jay.justPressed(LEFT_BUTTON)) game.moveCursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) game.moveCursor(1, 0);
         if(jay.justPressed(A_BUTTON)) {
-            uint8_t success = game.play();
+            uint8_t success = game.play(collection);
             if(success) {
                 if(game.isOver()) {
                     collection.setOutcome(game.result());
@@ -95,7 +95,7 @@ void loop() {
             game.select_inc(collection);
         }
         if (accum > 3 && game.selection == temp) {
-            game.play();
+            game.play(collection);
             if(game.isOver()) {
                 collection.setOutcome(game.result());
                 state = STATE_GAME_OVER;
