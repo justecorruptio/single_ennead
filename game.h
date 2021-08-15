@@ -47,7 +47,7 @@ class Game {
     uint8_t isOver();
     int8_t result(); // -1 = lose, 0 = draw, 1 = win
 
-    void ai_find_move();
+    void ai_find_move(Collection &collection);
 };
 
 PROGMEM const Pos tonari[4] = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};

@@ -35,6 +35,17 @@ void Game::reset(Collection &collection) {
         cards[1][i] = collection.ai_cards[i];
     }
 
+    if(collection.checkRule(RULE_SETUP_SWAP)) {
+        uint8_t a = random(5);
+        uint8_t b = random(5);
+        uint8_t t = cards[0][a];
+        cards[0][a] = cards[1][b];
+        cards[1][b] = t;
+    } else if(collection.checkRule(RULE_SETUP_REPLACE)) {
+        cards[0][random(5)] = random(100) + 1;
+        cards[1][random(5)] = random(100) + 1;
+    }
+
     startSelect(collection);
     turn = random(2);
     if (turn)
@@ -92,11 +103,12 @@ int8_t Game::result() {
     return (d > 0) - (d < 0);
 }
 
-void Game::ai_find_move() { //set cursor and selection
+void Game::ai_find_move(Collection &collection) { //set cursor and selection
     uint8_t color = 1 - turn;
     int8_t best_flips = -1;
 
     for(int idx = 0; idx < 5; idx ++) {
+        if (!collection.checkRule(RULE_PLAY_CHOOSE) && idx != selection) continue;
         if (cards[turn][idx] == 0) continue;
         Strength my_s = Card(cards[turn][idx]).strength();
         for(int x = 0; x < 3; x++) {

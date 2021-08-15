@@ -47,8 +47,8 @@ void setup() {
 }
 
 // animation vars;
-uint8_t accum = 0;
-uint8_t temp = 0;
+uint8_t accum;
+uint8_t temp;
 
 void loop() {
     if(!jay.nextFrame()) return;
@@ -78,7 +78,8 @@ void loop() {
                     break;
                 }
                 game.turn = 1 - game.turn;
-                game.ai_find_move();
+                game.startSelect(collection);
+                game.ai_find_move(collection);
                 game.state = state = STATE_ENEMY_SELECT;
                 temp = game.selection;
                 accum = 0;
@@ -150,6 +151,11 @@ void loop() {
             collection.selectAICards();
             game.reset(collection);
             state = game.state;
+            if(state == STATE_ENEMY_SELECT) {
+                game.ai_find_move(collection);
+                temp = game.selection;
+                accum = 0;
+            }
         }
         if(jay.justPressed(B_BUTTON)) {
             state = STATE_COLLECTION_PICKER;
@@ -251,6 +257,9 @@ void loop() {
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
     //jay.smallPrint(99, 1, itoa(collection.numCollected()), 1);
     //jay.smallPrint(99, 1, itoa(collection.getRules().v,16), 1);
+    //jay.smallPrint(99, 1, itoa(state), 1);
+    //jay.smallPrint(99, 8, itoa(accum), 1);
+    //jay.smallPrint(99, 17, itoa(temp), 1);
 
     jay.display();
 }
