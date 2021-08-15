@@ -48,3 +48,10 @@ You may visit the Queen of Cards to view current active rules. Press A to change
 - **CAPTURE: NORMAL**: Normal capture rules apply.
 - **CAPTURE: FALLEN ACE**: "1" beats "A".
 - **CAPTURE: ATTACKER**: You win ties on your turn.
+
+## TODO:
+
+- Add more rules.
+- Add flavor texts to all the cards.
+- Add animations for when cards are captured.
+- Add swap and replace animations.
