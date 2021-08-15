@@ -1,30 +1,50 @@
-# TERM TWIRL
+# Single Ennead
 
-This is a clone of Text Twist for Arduboy. There are over 1600 different levels.
+This is a demake of the Triple Triad minigame from the Final Fantasy series.
 
 ## Controls
-- Left/Right: Move the cursor.
-- Up: Select a letter.
-- Down: Retract a letter.
-- A: Play the word.
-- B: Retract all the letters. If they already are, then shuffle the letters.
+- Arrow Keys: move the cursor.
+- A: Confirm
+- B: Back
 
-## Compilation
-All of the needed files are checked in to compile and upload via Arduino.
+## How To Play
 
-You can also tweak and rebuild the compressed dictionary with:
-`. config.sh`
+- Players take turns playing cards on a 3x3 grid. Both starts with 5 cards of their color.
+- When you play a card, if a number is larger than the adjacent cards's number, you capture the card for your color.
+- The play who has the most cards of their color wins. Cards in hand are counted.
 
-## Internals
-We first find the most common 6-letter English words via a corpus. Based on that, look for all possible valid words
-that *can* show up in a game with these 6-letter words as the target. Compress the resulting set of words into a DAWG.
+## Spoils of war
 
-Since we do not have 2^16 nodes (2^13 covers us), we have 4 wasted bits of storage every 3 bytes. (17% waste)
+- Winner gets to keep one card of their opponent's, plus some amount of Gil depending on the league.
+- If you already own a that card, you will instead gain a large bonus Gil.
+- Gil may be used to purchase cards or change the active rules.
 
-When loading a new level, the DAWG is traversed once to pick a random 6-letter word, and then again to find all the
-words that are subanagrams of that 6-letter word.
+## Leagues
 
-## Sources
-- Word Frequencies: Peter Norvig's [Natural Language Corpus](https://norvig.com/ngrams/)
-- Word List: [Tournament Word List](https://en.wikipedia.org/wiki/NASPA_Word_List) for North American Scrabble players.
-- DAWG Compressor: [DAWG generator](https://github.com/AndrasKovacs/dawg-gen) for Andras Kovacs. 
+You are promoted to the next league for every 10 cards to own. You may be demoted if you do not have enough cards.
+
+## Collection View
+
+You can view your collection of cards from the Collection view.
+Press A to purchase a card with Gil. Cards at higher ranks cost more.
+
+## Rules
+
+You may visit the Queen of Cards to view current active rules. Press A to change one random rule for 500 Gil.
+
+- **WIN: RANDOM**: Winner gets to take a random card from the loser.
+- **WIN: LOWEST**: Winner gets to take the lowest ranked card from the loser.
+- **WIN: HIGHEST**: Winner gets to take the highest ranked card from the loser.
+- **PAYOUT: 1X/2X/3X/4X**: Base winnings is multiplied by this amount.
+- **PLAY: CHOOSE**: You get to choose which card to play.
+- **PLAY: ORDER**: You must play the first card in your hand.
+- **PLAY: RANDOM**: You must play a random card from your hand.
+- **SETUP: NONE**: You play with all the cards you've selected.
+- **SETUP: SWAP**: At the beginning of the game, a random card in your hand is swapped with one from you opponenet's hand.
+- **SETUP: REPLACE**: At the beginning of the game, a random card is your hnd is replaced with a random card.
+- **VISIBILITY: HIDDEN**: You cannot see your opponent's hand.
+- **VISIBILITY: OPEN**: Your opponent's hand is revealed.
+- **VISIBILITY: THREE**: Three cards from your opponent's hand is revealed.
+- **CAPTURE: NORMAL**: Normal capture rules apply.
+- **CAPTURE: FALLEN ACE**: "1" beats "A".
+- **CAPTURE: ATTACKER**: You win ties on your turn.
