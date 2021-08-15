@@ -161,6 +161,7 @@ void loop() {
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);
     //jay.smallPrint(99, 1, itoa(collection.numCollected()), 1);
+    //jay.smallPrint(99, 1, itoa(collection.getRules().v,16), 1);
 
     jay.display();
 }

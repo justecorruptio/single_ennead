@@ -42,6 +42,7 @@ class Game {
     void moveCursor(int8_t x, int8_t y);
 
     uint8_t play();
+    uint8_t isOver();
 
     void ai_find_move();
 };

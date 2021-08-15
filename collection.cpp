@@ -14,9 +14,12 @@ void Collection::init() {
         EEPROM[21] = 0x23;
 
         //money
-        uint16_t money = 2958;
-        EEPROM[32] = (money >> 8) & 0xff;
-        EEPROM[31] = (money >> 0) & 0xff;
+        setMoney(29358);
+
+        //rules
+        EEPROM[34] = 0;
+        EEPROM[33] = 0;
+        //setRule(RULE_PAYOUT_TRIPLE);
     }
 }
 
@@ -34,6 +37,30 @@ uint8_t Collection::numCollected() {
 
 uint16_t Collection::getMoney() {
     return (EEPROM[32] << 8) | EEPROM[31];
+}
+
+void Collection::setMoney(uint16_t money) {
+    if (money > 60000) money = 60000;
+    EEPROM[32] = (money >> 8) & 0xff;
+    EEPROM[31] = (money >> 0) & 0xff;
+}
+
+Rules Collection::getRules() {
+    return {(EEPROM[34] << 8) | EEPROM[33]};
+}
+
+void Collection::setRule(uint8_t rule) {
+    uint8_t offset = (rule >> 4) * 2;
+    Rules rules = getRules();
+    rules.v = (rules.v & ~(3 << offset)) | ((rule & 3) << offset);
+    EEPROM[34] = (rules.v >> 8) & 0xff;
+    EEPROM[33] = (rules.v >> 0) & 0xff;
+}
+
+uint8_t Collection::checkRule(uint8_t rule) {
+    uint8_t offset = (rule >> 4) * 2;
+    Rules rules = getRules();
+    return ((rules.v >> offset) & 3 ) == (rule & 3);
 }
 
 void Collection::resetPicker() {
@@ -105,7 +132,7 @@ void Collection::printInspect(Jaylib &jay) {
     jay.drawFastVLine(88, 0, 10, 1);
     jay.drawFastHLine(88, 9, 40, 1);
     jay.largePrint(90, 1, "$", 1, 1);
-    jay.largePrint(98, 1, itoa(50000), 1, 1);
+    jay.largePrint(98, 1, itoa(getMoney()), 1, 1);
 }
 
 void Collection::printPicker(Jaylib &jay) {

@@ -50,6 +50,8 @@ void Game::reset(uint8_t* selectedCards, uint8_t numCollected) {
         state = STATE_ENEMY_SELECT;
     else
         state = STATE_USER_SELECT;
+
+    scores[0] = scores[1] = 5;
 }
 
 void Game::moveCursor(int8_t x, int8_t y) {
@@ -65,7 +67,6 @@ uint8_t Game::play() {
 
     board[x][y] = {cards[turn][selection], color};
     cards[turn][selection] = 0;
-    scores[turn] += 1;
 
     Strength my_s = Card(board[x][y].card).strength();
 
@@ -85,6 +86,14 @@ uint8_t Game::play() {
     }
 
     return 1;
+}
+
+uint8_t Game::isOver() {
+    return (
+        board[0][0].card && board[0][1].card && board[0][2].card &&
+        board[1][0].card && board[1][1].card && board[1][2].card &&
+        board[2][0].card && board[2][1].card && board[2][2].card
+    );
 }
 
 void Game::ai_find_move() { //set cursor and selection
@@ -165,10 +174,8 @@ void Game::print(Jaylib &jay) {
         }
     }
 
-
     // DISPLAY SCORES
     jay.largePrint(30, 56, itoa(scores[0]), 1);
     jay.largePrint(93, 56, itoa(scores[1]), 1);
 }
-
 
