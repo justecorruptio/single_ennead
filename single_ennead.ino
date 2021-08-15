@@ -32,7 +32,7 @@ void setup() {
 
     //collection.deleteCard(99);
     //collection.setMoney(50000);
-    collection.setRule(RULE_CAPTURE_FALLEN_ACE);
+    //collection.setRule(RULE_CAPTURE_FALLEN_ACE);
 
     /*
     collection.result = 0;

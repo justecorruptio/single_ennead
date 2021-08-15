@@ -6,15 +6,12 @@ void Collection::init() {
         EEPROM[17] = (COLLECTION_MAGIC >> 8) & 0xff;
         EEPROM[16] = (COLLECTION_MAGIC >> 0) & 0xff;
         for(int i = 0; i < 13; i ++) { // E[18] - E[30]
-            EEPROM[i + 18] = 0;
+            EEPROM[i + 18] = 0x0;
         }
-        EEPROM[18] = 0xff;
-        EEPROM[19] = 0x04;
-        EEPROM[20] = 0xc1;
-        EEPROM[21] = 0x23;
+        EEPROM[18] = 0x1f;
 
         //money
-        setMoney(29358);
+        setMoney(0);
 
         //rules
         EEPROM[34] = 0;
@@ -326,6 +323,9 @@ void Collection::printRules(Jaylib &jay) {
     Rules rules = getRules();
     for(int i = 0; i < 6; i++){
         char * str = loadPStr(pgm_read_word(&RULE_STRINGS[i][(rules.v >> (i * 2)) & 3]));
-        jay.largePrint(12, i * 9 + 11, str, 1);
+        jay.largePrint(1, i * 9 + 11, str, 1);
     }
+
+    for(int i = 0; i < 4; i++)
+        jay.drawBand(98, i * 8 + 11, GLYPH_QR + i * 29, 29);
 }

@@ -7,7 +7,7 @@
 #include "constants.h"
 #include "rules.h"
 
-#define COLLECTION_MAGIC 0xf493
+#define COLLECTION_MAGIC 0xf497
 
 typedef union {
     uint16_t v;
