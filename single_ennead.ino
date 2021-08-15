@@ -10,15 +10,15 @@
 #include "main_menu.h"
 
 Jaylib jay;
-Game game = Game();
-Collection collection = Collection();
-MainMenu main_menu = MainMenu();
+Game game;
+Collection collection;
+MainMenu main_menu;
 
 // uint8_t state = STATE_USER_SELECT;
 //uint8_t state = STATE_COLLECTION_INSPECT;
 //uint8_t state = STATE_COLLECTION_PICKER;
+//uint8_t state = STATE_COLLECTION_OUTCOME;
 uint8_t state = STATE_MAIN_MENU;
-
 
 void setup() {
     jay.boot();
@@ -29,6 +29,16 @@ void setup() {
 
     main_menu.reset();
     jay.initRandomSeed();
+
+    //collection.deleteCard(99);
+
+    /*
+    collection.result = 0;
+    collection.payout = 4620;
+    collection.bonus = 45;
+    collection.winCard = 57;
+    collection.loseCard = 99;
+    */
 
     //game.reset();
     //state = game.state;
@@ -61,6 +71,7 @@ void loop() {
             uint8_t success = game.play();
             if(success) {
                 if(game.isOver()) {
+                    collection.setOutcome(game.result());
                     state = STATE_GAME_OVER;
                     break;
                 }
@@ -83,6 +94,7 @@ void loop() {
         if (accum > 3 && game.selection == temp) {
             game.play();
             if(game.isOver()) {
+                collection.setOutcome(game.result());
                 state = STATE_GAME_OVER;
                 break;
             }
@@ -93,6 +105,9 @@ void loop() {
         break;
 
     case STATE_GAME_OVER:
+        if(jay.justPressed(A_BUTTON) || jay.justPressed(B_BUTTON)) {
+            state = STATE_COLLECTION_OUTCOME;
+        }
         break;
 
     case STATE_COLLECTION_INSPECT:
@@ -125,11 +140,19 @@ void loop() {
         break;
     case STATE_COLLECTION_PICK_CONFIRM:
         if(jay.justPressed(A_BUTTON)) {
-            game.reset(collection.cards, collection.numCollected());
+            collection.selectAICards();
+            game.reset(collection);
             state = game.state;
         }
         if(jay.justPressed(B_BUTTON)) {
             state = STATE_COLLECTION_PICKER;
+        }
+        break;
+
+    case STATE_COLLECTION_OUTCOME:
+        if(jay.justPressed(A_BUTTON) || jay.justPressed(B_BUTTON)) {
+            collection.resetPicker();
+            state = STATE_MAIN_MENU;
         }
         break;
     case STATE_MAIN_MENU:
@@ -164,6 +187,9 @@ void loop() {
         case STATE_COLLECTION_PICK_CONFIRM:
             collection.printPicker(jay);
             collection.printSelection(jay);
+            break;
+        case STATE_COLLECTION_OUTCOME:
+            collection.printOutcome(jay);
             break;
     }
 

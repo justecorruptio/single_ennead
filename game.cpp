@@ -20,28 +20,14 @@ void Game::select_inc(int8_t step) {
     }
 }
 
-void Game::reset(uint8_t* selectedCards, uint8_t numCollected) {
-
-    uint8_t min = (numCollected / 10) * 10 + 1;
-    uint8_t max = (numCollected / 10) * 9 + 21;
-    if (max > 100) max = 100;
+void Game::reset(Collection &collection) {
+    for(int i = 0; i < 3; i++)
+        for(int j = 0; j < 3; j++)
+            board[i][j] = {0, 0};
 
     for(int i = 0; i < 5; i++) {
-        cards[0][i] = selectedCards[i];
-
-        uint8_t c;
-        uint8_t found;
-        do {
-            c = random(min, max);
-            found = 0;
-            for(int j = 0; j < i; j++){
-                if(ai_cards[j] == c) {
-                    found = 1;
-                    break;
-                }
-            }
-        } while(found);
-        ai_cards[i] = cards[1][i] = c;
+        cards[0][i] = collection.my_cards[i];
+        cards[1][i] = collection.ai_cards[i];
     }
 
     startSelect();

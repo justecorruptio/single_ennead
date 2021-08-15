@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "glyphs.h"
 #include "constants.h"
+#include "collection.h"
 
 typedef struct {
     uint8_t card:7;
@@ -37,7 +38,7 @@ class Game {
     void startSelect();
     void select_inc(int8_t step=1);
 
-    void reset(uint8_t* selectedCards, uint8_t numCollected);
+    void reset(Collection &collection);
 
     void moveCursor(int8_t x, int8_t y);
 

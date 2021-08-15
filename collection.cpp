@@ -27,6 +27,18 @@ uint8_t Collection::hasCard(uint8_t n) {
     return (EEPROM[(n / 8) + 18] >> (n % 8)) & 0x1;
 }
 
+void Collection::addCard(uint8_t n) {
+    uint8_t v = EEPROM[(n / 8) + 18];
+    v |= 1 << (n % 8);
+    EEPROM[(n / 8) + 18] = v;
+}
+
+void Collection::deleteCard(uint8_t n) {
+    uint8_t v = EEPROM[(n / 8) + 18];
+    v &= ~(1 << (n % 8));
+    EEPROM[(n / 8) + 18] = v;
+}
+
 uint8_t Collection::numCollected() {
     uint8_t sum = 0;
     for(int i = 0; i < 13; i ++) { // E[18] - E[21]
@@ -79,14 +91,73 @@ void Collection::selectCard() {
     if (!hasCard(pos)) return;
 
     for(int i = 0; i < numCards; i++) {
-        if (cards[i] == pos + 1) return;
+        if (my_cards[i] == pos + 1) return;
     }
-    cards[numCards] = pos + 1;
+    my_cards[numCards] = pos + 1;
     numCards ++;
 }
 
 void Collection::deselectCard() {
     if(numCards) numCards--;
+}
+
+void Collection::selectAICards() {
+
+    uint8_t nc = numCollected();
+    uint8_t min = (nc / 10) * 10 + 1;
+    uint8_t max = (nc / 10) * 9 + 21;
+    if (max > 100) max = 100;
+
+    for(int i = 0; i < 5; i++) {
+        uint8_t c;
+        uint8_t found;
+        do {
+            c = random(min, max);
+            found = 0;
+            for(int j = 0; j < i; j++){
+                if(ai_cards[j] == c) {
+                    found = 1;
+                    break;
+                }
+            }
+        } while(found);
+        ai_cards[i] = c;
+    }
+}
+
+void Collection::setOutcome(int8_t _result) {
+    result = _result;
+
+    uint8_t nc = numCollected();
+    if (result < 1)
+        payout = 10;
+    else {
+        payout = Card(nc).cost() / 10;
+        if(payout < 20) payout = 20;
+    }
+
+    winCard = 0;
+    loseCard = 0;
+    bonus = 0;
+
+    if(result == 1) {
+        uint8_t c = ai_cards[0]; //TODO: win rules
+        winCard = c;
+
+        if(hasCard(c)) {
+            bonus = Card(c).cost() / 8;
+        } else {
+            addCard(c - 1);
+        }
+    } else if (result == -1) {
+        uint8_t c = my_cards[0];
+        loseCard = c;
+        deleteCard(c - 1);
+    }
+
+    uint16_t money = getMoney();
+    money += payout + bonus;
+    setMoney(money);
 }
 
 void Collection::printMatrix(Jaylib &jay, int8_t x) {
@@ -95,7 +166,7 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
         for(int j = 0; j < 10; j++) {
             uint8_t selected = 0;
             for(int k = 0; k < numCards; k++) {
-                if (cards[k] == i * 10 + j + 1){
+                if (my_cards[k] == i * 10 + j + 1){
                     selected = 1;
                     break;
                 }
@@ -146,11 +217,47 @@ void Collection::printPicker(Jaylib &jay) {
 
 void Collection::printSelection(Jaylib &jay) {
     for(int i = 0; i < numCards; i++) {
-        if(cards[i]) {
+        if(my_cards[i]) {
             jay.drawFastHLine(1, i * 12, 18, 0);
             jay.drawFastVLine(19, i * 12, 20, 0);
             jay.drawFastVLine(0, i * 12, 20, 0);
-            Card(cards[i]).print(jay, 1, i * 12 + 1, 1);
+            Card(my_cards[i]).print(jay, 1, i * 12 + 1, 1);
         }
+    }
+}
+
+void Collection::printOutcome(Jaylib &jay) {
+    jay.largePrint(1, 1, "Result:", 1, 1);
+    jay.drawFastHLine(0, 10, 128, 1);
+    if (result == 1) {
+        jay.largePrint(48, 1, "Victory!", 1, 1);
+
+        jay.largePrint(19, 25, "Card won:", 1, 1);
+        Card(winCard).print(jay, 79, 12, 1);
+        jay.largePrint(99, 25, "#", 1, 1);
+        jay.largePrint(105, 25, itoa(winCard), 1, 1);
+        jay.largePrint(19, 34, "  Payout: $", 1, 1);
+        jay.largePrint(85, 34, itoa(payout), 1, 1);
+
+        if(bonus) {
+            jay.smallPrint(99, 12, "ALREADY\nOWNED", 1);
+            jay.largePrint(1, 43, "Owned Bonus: $", 1, 1);
+            jay.largePrint(85, 43, itoa(bonus), 1, 1);
+        }
+    } else if(result == -1) {
+        jay.largePrint(48, 1, "Defeat!", 1, 1);
+
+        jay.largePrint(13, 25, "Card lost:", 1, 1);
+        Card(loseCard).print(jay, 79, 12, 1);
+        jay.largePrint(99, 25, "#", 1, 1);
+        jay.largePrint(105, 25, itoa(loseCard), 1, 1);
+        jay.largePrint(19, 34, "  Payout: $", 1, 1);
+        jay.largePrint(85, 34, itoa(payout), 1, 1);
+
+    } else {
+        jay.largePrint(48, 1, "Draw!", 1, 1);
+
+        jay.largePrint(19, 34, "  Payout: $", 1, 1);
+        jay.largePrint(85, 34, itoa(payout), 1, 1);
     }
 }

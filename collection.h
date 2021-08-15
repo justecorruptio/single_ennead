@@ -27,15 +27,20 @@ class Collection {
     public:
     Pos cursor;
 
-    uint8_t cards[5];
+    uint8_t my_cards[5];
+    uint8_t ai_cards[5];
     uint8_t numCards;
 
+    int8_t result;
     uint16_t payout;
-    uint16_t winCard;
-    uint16_t loseCard;
+    uint16_t bonus;
+    uint8_t winCard;
+    uint8_t loseCard;
 
     void init();
     uint8_t hasCard(uint8_t n);
+    void addCard(uint8_t n);
+    void deleteCard(uint8_t n);
     uint8_t numCollected();
 
     uint16_t getMoney();
@@ -50,9 +55,14 @@ class Collection {
     void selectCard();
     void deselectCard();
 
+    void selectAICards();
+
+    void setOutcome(int8_t _result);
+
     void printInspect(Jaylib &jay);
     void printPicker(Jaylib &jay);
     void printMatrix(Jaylib &jay, int8_t x);
 
     void printSelection(Jaylib &jay);
+    void printOutcome(Jaylib &jay);
 };
