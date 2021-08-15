@@ -32,7 +32,7 @@ void setup() {
 
     //collection.deleteCard(99);
     //collection.setMoney(50000);
-    collection.setRule(RULE_VISIBILITY_HIDDEN);
+    collection.setRule(RULE_PAYOUT_QUAD);
 
     /*
     collection.result = 0;

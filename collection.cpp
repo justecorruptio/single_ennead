@@ -148,6 +148,10 @@ void Collection::setOutcome(int8_t _result) {
         payout = 10;
     else {
         payout = Card(nc).cost() / 10;
+        if(checkRule(RULE_PAYOUT_DOUBLE)) payout *= 2;
+        else if(checkRule(RULE_PAYOUT_TRIPLE)) payout *= 3;
+        else if(checkRule(RULE_PAYOUT_QUAD)) payout *= 4;
+
         if(payout < 20) payout = 20;
     }
 
@@ -155,8 +159,19 @@ void Collection::setOutcome(int8_t _result) {
     loseCard = 0;
     bonus = 0;
 
+    uint8_t c = 0;
     if(result == 1) {
-        uint8_t c = ai_cards[0]; //TODO: win rules
+        if (checkRule(RULE_WIN_RANDOM)) {
+            c = ai_cards[random(5)];
+        } else {
+            for(int i = 0; i < 5; i++) {
+                if(
+                    c == 0 ||
+                    (checkRule(RULE_WIN_LOWEST) && ai_cards[i] < c) ||
+                    (checkRule(RULE_WIN_HIGHEST) && ai_cards[i] > c)
+                ) c = ai_cards[i];
+            }
+        }
         winCard = c;
 
         if(hasCard(c)) {
@@ -165,7 +180,17 @@ void Collection::setOutcome(int8_t _result) {
             addCard(c);
         }
     } else if (result == -1) {
-        uint8_t c = my_cards[0];
+        if (checkRule(RULE_WIN_RANDOM)) {
+            c = my_cards[random(5)];
+        } else {
+            for(int i = 0; i < 5; i++) {
+                if(
+                    c == 0 ||
+                    (checkRule(RULE_WIN_LOWEST) && my_cards[i] < c) ||
+                    (checkRule(RULE_WIN_HIGHEST) && my_cards[i] > c)
+                ) c = my_cards[i];
+            }
+        }
         loseCard = c;
         deleteCard(c);
     }
