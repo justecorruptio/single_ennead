@@ -21,7 +21,9 @@ This is a demake of the Triple Triad minigame from the Final Fantasy series.
 
 ## Leagues
 
-You are promoted to the next league for every 10 cards to own. You may be demoted if you do not have enough cards.
+- You are promoted to the next league for every 10 cards to own.
+- Opponents at higher leagues will have better cards.
+- You may be demoted if you do not have enough cards.
 
 ## Collection View
 
