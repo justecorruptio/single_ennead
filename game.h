@@ -32,8 +32,9 @@ class Game {
     uint8_t scores[2];
     Pos cursor;
     //Wipe wipes[5];
+    Pos lastPlay;
 
-    void print(Jaylib &jay);
+    void print(Jaylib &jay, Collection &collection);
 
     void startSelect();
     void select_inc(int8_t step=1);

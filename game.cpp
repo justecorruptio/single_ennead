@@ -70,7 +70,7 @@ uint8_t Game::play() {
             scores[1 - turn] -= 1;
         }
     }
-
+    lastPlay = cursor;
     return 1;
 }
 
@@ -120,7 +120,7 @@ void Game::ai_find_move() { //set cursor and selection
     }
 }
 
-void Game::print(Jaylib &jay) {
+void Game::print(Jaylib &jay, Collection &collection) {
     // DISPLAY BOARD
     for(int i = 0; i < 3; i ++) {
         for(int j = 0; j < 3; j ++) {
@@ -161,7 +161,13 @@ void Game::print(Jaylib &jay) {
             jay.drawFastHLine(selected * -4 + 109, i * 12, 18, 0);
             jay.drawFastVLine(selected * -4 + 127, i * 12, 20, 0);
             jay.drawFastVLine(selected * -4 + 108, i * 12, 20, 0);
-            Card(cards[1][i]).print(jay, selected * -4 + 109, i * 12 + 1, 0);
+            if(
+                collection.checkRule(RULE_VISIBILITY_OPEN) ||
+                (collection.checkRule(RULE_VISIBILITY_THREE) && i < 3)
+            )
+                Card(cards[1][i]).print(jay, selected * -4 + 109, i * 12 + 1, 0);
+            else
+                Card(cards[1][i]).printBack(jay, selected * -4 + 109, i * 12 + 1, 0);
         }
     }
 

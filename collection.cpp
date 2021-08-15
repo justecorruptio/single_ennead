@@ -299,7 +299,7 @@ void Collection::printRules(Jaylib &jay) {
     jay.drawFastHLine(0, 9, 128, 1);
 
     Rules rules = getRules();
-    for(int i = 0; i < 7; i++){
+    for(int i = 0; i < 6; i++){
         char * str = loadPStr(pgm_read_word(&RULE_STRINGS[i][(rules.v >> (i * 2)) & 3]));
         jay.smallPrint(12, i * 7 + 12, str, 1);
     }

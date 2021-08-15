@@ -32,6 +32,7 @@ void setup() {
 
     //collection.deleteCard(99);
     //collection.setMoney(50000);
+    collection.setRule(RULE_VISIBILITY_HIDDEN);
 
     /*
     collection.result = 0;
@@ -207,7 +208,7 @@ void loop() {
         case STATE_USER_HOVER:
         case STATE_ENEMY_SELECT:
         case STATE_GAME_OVER:
-            game.print(jay);
+            game.print(jay, collection);
             break;
         case STATE_COLLECTION_INSPECT:
         case STATE_COLLECTION_BUY_CONFIRM:
