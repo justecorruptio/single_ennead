@@ -36,8 +36,8 @@ class Game {
 
     void print(Jaylib &jay, Collection &collection);
 
-    void startSelect();
-    void select_inc(int8_t step=1);
+    void startSelect(Collection &collection);
+    void select_inc(Collection &collection, int8_t step=1);
 
     void reset(Collection &collection);
 

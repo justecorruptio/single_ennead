@@ -32,7 +32,7 @@ void setup() {
 
     //collection.deleteCard(99);
     //collection.setMoney(50000);
-    collection.setRule(RULE_PAYOUT_QUAD);
+    collection.setRule(RULE_PLAY_RANDOM);
 
     /*
     collection.result = 0;
@@ -58,8 +58,8 @@ void loop() {
 
     switch (state) {
     case STATE_USER_SELECT:
-        if(jay.justPressed(UP_BUTTON)) game.select_inc(-1);
-        if(jay.justPressed(DOWN_BUTTON)) game.select_inc(1);
+        if(jay.justPressed(UP_BUTTON)) game.select_inc(collection, -1);
+        if(jay.justPressed(DOWN_BUTTON)) game.select_inc(collection, 1);
         if(jay.justPressed(A_BUTTON)) {
             game.state = state = STATE_USER_HOVER;
         }
@@ -91,7 +91,7 @@ void loop() {
     case STATE_ENEMY_SELECT:
         if(jay.counter % 16 == 0) {
             accum ++;
-            game.select_inc();
+            game.select_inc(collection);
         }
         if (accum > 3 && game.selection == temp) {
             game.play();
@@ -101,7 +101,7 @@ void loop() {
                 break;
             }
             game.turn = 1 - game.turn;
-            game.startSelect();
+            game.startSelect(collection);
             game.state = state = STATE_USER_SELECT;
         }
         break;

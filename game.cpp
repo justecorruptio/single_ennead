@@ -1,16 +1,21 @@
 #include "game.h"
 
-void Game::startSelect() {
+void Game::startSelect(Collection &collection) {
+    uint8_t s = 0;
+    if(collection.checkRule(RULE_PLAY_RANDOM)) s = random(5);
+
     for(int i = 0; i < 5; i++){
-        if(cards[turn][i]){
-            selection = i;
+        uint8_t j = (s + i) % 5;
+        if(cards[turn][j]){
+            selection = j;
             return;
         }
     }
 }
 
 
-void Game::select_inc(int8_t step) {
+void Game::select_inc(Collection &collection, int8_t step) {
+    if (!collection.checkRule(RULE_PLAY_CHOOSE)) return;
     for(int i = 1; i < 5; i++){
         uint8_t n = (selection + step * i + 5) % 5;
         if(cards[turn][n]) {
@@ -30,7 +35,7 @@ void Game::reset(Collection &collection) {
         cards[1][i] = collection.ai_cards[i];
     }
 
-    startSelect();
+    startSelect(collection);
     turn = random(2);
     if (turn)
         state = STATE_ENEMY_SELECT;
