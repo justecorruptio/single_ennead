@@ -115,6 +115,11 @@ void loop() {
         if(jay.justPressed(DOWN_BUTTON)) collection.moveCursor(0, 1);
         if(jay.justPressed(LEFT_BUTTON)) collection.moveCursor(-1, 0);
         if(jay.justPressed(RIGHT_BUTTON)) collection.moveCursor(1, 0);
+        if(jay.justPressed(A_BUTTON)) {
+            if(collection.canBuy()) {
+                state = STATE_COLLECTION_BUY_CONFIRM;
+            }
+        }
         if(jay.justPressed(B_BUTTON)) {
             state = STATE_MAIN_MENU;
         }
@@ -155,6 +160,15 @@ void loop() {
             state = STATE_MAIN_MENU;
         }
         break;
+    case STATE_COLLECTION_BUY_CONFIRM:
+        if(jay.justPressed(A_BUTTON)) {
+            collection.buy();
+            state = STATE_COLLECTION_INSPECT;
+        }
+        if(jay.justPressed(B_BUTTON)) {
+            state = STATE_COLLECTION_INSPECT;
+        }
+        break;
     case STATE_MAIN_MENU:
         main_menu.print(jay, collection.numCollected());
         if(main_menu.pan > 0) break;
@@ -181,6 +195,7 @@ void loop() {
             game.print(jay);
             break;
         case STATE_COLLECTION_INSPECT:
+        case STATE_COLLECTION_BUY_CONFIRM:
             collection.printInspect(jay);
             break;
         case STATE_COLLECTION_PICKER:
@@ -203,6 +218,10 @@ void loop() {
 
     if (state == STATE_COLLECTION_PICK_CONFIRM) {
         jay.drawPrompt(22, "Ready?", 0);
+    }
+
+    if (state == STATE_COLLECTION_BUY_CONFIRM) {
+        jay.drawPrompt(40, "Buy Card?", 0);
     }
 
     //jay.smallPrint(99, 56, itoa(jay.cpuLoad()), 1);

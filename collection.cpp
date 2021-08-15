@@ -24,16 +24,19 @@ void Collection::init() {
 }
 
 uint8_t Collection::hasCard(uint8_t n) {
+    n --;
     return (EEPROM[(n / 8) + 18] >> (n % 8)) & 0x1;
 }
 
 void Collection::addCard(uint8_t n) {
+    n --;
     uint8_t v = EEPROM[(n / 8) + 18];
     v |= 1 << (n % 8);
     EEPROM[(n / 8) + 18] = v;
 }
 
 void Collection::deleteCard(uint8_t n) {
+    n --;
     uint8_t v = EEPROM[(n / 8) + 18];
     v &= ~(1 << (n % 8));
     EEPROM[(n / 8) + 18] = v;
@@ -88,7 +91,7 @@ void Collection::moveCursor(int8_t x, int8_t y) {
 void Collection::selectCard() {
     uint8_t pos = cursor.x * 10 + cursor.y;
     if (numCards == 5) return;
-    if (!hasCard(pos)) return;
+    if (!hasCard(pos + 1)) return;
 
     for(int i = 0; i < numCards; i++) {
         if (my_cards[i] == pos + 1) return;
@@ -147,16 +150,29 @@ void Collection::setOutcome(int8_t _result) {
         if(hasCard(c)) {
             bonus = Card(c).cost() / 8;
         } else {
-            addCard(c - 1);
+            addCard(c);
         }
     } else if (result == -1) {
         uint8_t c = my_cards[0];
         loseCard = c;
-        deleteCard(c - 1);
+        deleteCard(c);
     }
 
     uint16_t money = getMoney();
     money += payout + bonus;
+    setMoney(money);
+}
+
+uint8_t Collection::canBuy() {
+    uint8_t c = cursor.x * 10 + cursor.y + 1;
+    return !hasCard(c) && getMoney() >= Card(c).cost();
+}
+
+void Collection::buy() {
+    uint8_t c = cursor.x * 10 + cursor.y + 1;
+    addCard(c);
+    uint16_t money = getMoney();
+    money -= Card(c).cost();
     setMoney(money);
 }
 
@@ -172,7 +188,7 @@ void Collection::printMatrix(Jaylib &jay, int8_t x) {
                 }
             }
             uint8_t blink = cursor.x == i && cursor.y == j && c < 2;
-            uint8_t has = hasCard(i * 10 + j);
+            uint8_t has = hasCard(i * 10 + j + 1);
             jay.drawBand(
                 x + i * 5 + !blink,
                 j * 6 + 1 + !blink,
@@ -189,7 +205,7 @@ void Collection::printInspect(Jaylib &jay) {
     jay.largePrint(73, 13, "#", 1, 1);
     jay.largePrint(73 + 6, 13, itoa(hovered), 1, 1);
 
-    if(hasCard(hovered) || 1) { // TODO
+    if(hasCard(hovered)) { // TODO
         Card(hovered).print(jay, 53, 1, 1);
         jay.largePrint(53, 23, Card(hovered).name(), 1, 1);
         jay.smallPrintWrapped(53, 33, 128 - 53, Card(hovered).flavor(), 1);

@@ -59,6 +59,9 @@ class Collection {
 
     void setOutcome(int8_t _result);
 
+    uint8_t canBuy();
+    void buy();
+
     void printInspect(Jaylib &jay);
     void printPicker(Jaylib &jay);
     void printMatrix(Jaylib &jay, int8_t x);
