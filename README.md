@@ -43,7 +43,7 @@ You may visit the Queen of Cards to view current active rules. Press A to change
 - **PLAY: RANDOM**: You must play a random card from your hand.
 - **SETUP: NONE**: You play with all the cards you've selected.
 - **SETUP: SWAP**: At the beginning of the game, a random card in your hand is swapped with one from you opponenet's hand.
-- **SETUP: REPLACE**: At the beginning of the game, a random card is your hnd is replaced with a random card.
+- **SETUP: REPLACE**: At the beginning of the game, a random card is your hand is replaced with a random card.
 - **VISIBILITY: HIDDEN**: You cannot see your opponent's hand.
 - **VISIBILITY: OPEN**: Your opponent's hand is revealed.
 - **VISIBILITY: THREE**: Three cards from your opponent's hand is revealed.
@@ -54,7 +54,6 @@ You may visit the Queen of Cards to view current active rules. Press A to change
 ## TODO
 
 - Add more rules.
-- Add flavor texts to all the cards.
 - Add animations for when cards are captured.
 - Add swap and replace animations.
 - Make the AI better.
