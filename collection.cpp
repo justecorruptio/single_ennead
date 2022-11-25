@@ -269,10 +269,14 @@ void Collection::printInspect(Jaylib &jay) {
 void Collection::printPicker(Jaylib &jay) {
     printMatrix(jay, 24);
     uint8_t hovered = cursor.x * 10 + cursor.y + 1;
-    Card(hovered).print(jay, 77, 10, 1);
+    if(hasCard(hovered)) {
+        Card(hovered).print(jay, 77, 10, 1);
+        jay.smallPrint(77, 33, Card(hovered).name(), 1);
+    } else {
+        Card(hovered).printBack(jay, 77, 10, 0);
+    }
     jay.largePrint(77, 1, "#", 1, 1);
     jay.largePrint(77 + 6, 1, itoa(hovered), 1, 1);
-    jay.smallPrint(77, 33, Card(hovered).name(), 1);
 }
 
 void Collection::printSelection(Jaylib &jay) {
