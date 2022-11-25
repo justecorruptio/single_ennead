@@ -52,7 +52,7 @@ PROGMEM const CardData CARDS [] = {
     CC(7b,c5,c2,84,44,32,0d,03, 14,5427), // Jackal
     CC(70,89,8f,81,85,8f,89,70, 25,7722), // Flask
     CC(7e,a1,83,a2,82,e3,41,3e, 23,3564), // Hippo
-    CC(3d,62,a1,e1,21,61,a2,dd, 23,2673), // Floater
+    CC(3d,62,a1,e1,21,61,a2,dd, 23,2673), // Pixie
     CC(7e,b7,d3,c2,92,b3,47,3e, 25,6156), // Panda
     CC(7e,91,f1,71,91,f1,21,1e, 22,7345), // Walrus
     CC(7c,82,81,81,85,8b,81,7e, 25,2764), // Rock Monster
@@ -160,7 +160,7 @@ PROGMEM const char CARD_NAME_040[] = "Screaming Head";
 PROGMEM const char CARD_NAME_041[] = "Jackal";
 PROGMEM const char CARD_NAME_042[] = "Dewar Flask";
 PROGMEM const char CARD_NAME_043[] = "Hippopotamus";
-PROGMEM const char CARD_NAME_044[] = "Floater";
+PROGMEM const char CARD_NAME_044[] = "Pixie";
 PROGMEM const char CARD_NAME_045[] = "Giant Panda";
 PROGMEM const char CARD_NAME_046[] = "Walrus";
 PROGMEM const char CARD_NAME_047[] = "Rock Monster";
@@ -179,7 +179,7 @@ PROGMEM const char CARD_NAME_059[] = "Chocobo";
 PROGMEM const char CARD_NAME_060[] = "Rhinoceros";
 PROGMEM const char CARD_NAME_061[] = "Hunchback";
 PROGMEM const char CARD_NAME_062[] = "Soldier";
-PROGMEM const char CARD_NAME_063[] = "Anchorite";
+PROGMEM const char CARD_NAME_063[] = "Ascetic";
 PROGMEM const char CARD_NAME_064[] = "Killer Whale";
 PROGMEM const char CARD_NAME_065[] = "Gorilla";
 PROGMEM const char CARD_NAME_066[] = "Light Elf";
@@ -271,26 +271,26 @@ PROGMEM const char CARD_FLAVOR_040[] = "ITS DEAFENING SHRILL CAN CAUSE TINNITUS 
 PROGMEM const char CARD_FLAVOR_041[] = "CUTE POINTY EARS, WILL BITE";
 PROGMEM const char CARD_FLAVOR_042[] = "FOR ALL YOU KNOW ITS HOLDING POISON";
 PROGMEM const char CARD_FLAVOR_043[] = "IN FACT NOT BALLERINAS";
-PROGMEM const char CARD_FLAVOR_044[] = "";
-PROGMEM const char CARD_FLAVOR_045[] = "";
-PROGMEM const char CARD_FLAVOR_046[] = "";
-PROGMEM const char CARD_FLAVOR_047[] = "";
-PROGMEM const char CARD_FLAVOR_048[] = "";
-PROGMEM const char CARD_FLAVOR_049[] = "";
-PROGMEM const char CARD_FLAVOR_050[] = "";
-PROGMEM const char CARD_FLAVOR_051[] = "";
-PROGMEM const char CARD_FLAVOR_052[] = "";
-PROGMEM const char CARD_FLAVOR_053[] = "";
-PROGMEM const char CARD_FLAVOR_054[] = "";
-PROGMEM const char CARD_FLAVOR_055[] = "";
-PROGMEM const char CARD_FLAVOR_056[] = "";
-PROGMEM const char CARD_FLAVOR_057[] = "";
-PROGMEM const char CARD_FLAVOR_058[] = "";
-PROGMEM const char CARD_FLAVOR_059[] = "";
-PROGMEM const char CARD_FLAVOR_060[] = "";
-PROGMEM const char CARD_FLAVOR_061[] = "";
-PROGMEM const char CARD_FLAVOR_062[] = "";
-PROGMEM const char CARD_FLAVOR_063[] = "";
+PROGMEM const char CARD_FLAVOR_044[] = "HEY! LISTEN!\nHEY! LISTEN!\nHEY! LISTEN!";
+PROGMEM const char CARD_FLAVOR_045[] = "DANGEROUSLY ENDANGERED";
+PROGMEM const char CARD_FLAVOR_046[] = "IMAGINE GETTING IMPALED BY ONE OF THOSE";
+PROGMEM const char CARD_FLAVOR_047[] = "ITS ONE TACTIC IS TO CRUSH";
+PROGMEM const char CARD_FLAVOR_048[] = "A DELICACY IN MANY CULTURES";
+PROGMEM const char CARD_FLAVOR_049[] = "I DUNNO, IT SELF-RIGHTEOUSES YOU TO DEATH?";
+PROGMEM const char CARD_FLAVOR_050[] = "ENRAGED, IT CAN CALL UPON THE WHOLE HIVE";
+PROGMEM const char CARD_FLAVOR_051[] = "ANCESTOR TO ALL CATTLE, THE MAC DADDY";
+PROGMEM const char CARD_FLAVOR_052[] = "NOT A REALY BOY";
+PROGMEM const char CARD_FLAVOR_053[] = "GOES BUMP IN THE NIGHT";
+PROGMEM const char CARD_FLAVOR_054[] = "ONCE IT SNIFFS ITS PREY, THEY CAN'T RUN";
+PROGMEM const char CARD_FLAVOR_055[] = "THE MOST CUNNING OF THE WHITE ANIMALS";
+PROGMEM const char CARD_FLAVOR_056[] = "ALWAYS READY TO POUNCE";
+PROGMEM const char CARD_FLAVOR_057[] = "DON'T ACCEPT HER FREE APPLES";
+PROGMEM const char CARD_FLAVOR_058[] = "THE ONLY PERSON ABLE TO STAND UP THE THE KING";
+PROGMEM const char CARD_FLAVOR_059[] = "KWEEEEEEEE";
+PROGMEM const char CARD_FLAVOR_060[] = "TAKEN FOR UNICORNS IN ANTIQUITY";
+PROGMEM const char CARD_FLAVOR_061[] = "RINGING THE BELL WAS JUST WEIGHT TRAINING";
+PROGMEM const char CARD_FLAVOR_062[] = "CANNON FODDER";
+PROGMEM const char CARD_FLAVOR_063[] = "SELF-FLAGELLATES FOR FUN AND PROPHET";
 PROGMEM const char CARD_FLAVOR_064[] = "";
 PROGMEM const char CARD_FLAVOR_065[] = "";
 PROGMEM const char CARD_FLAVOR_066[] = "";
