@@ -44,7 +44,7 @@ void Jaylib::smallPrintWrapped(uint8_t x, uint8_t y, uint8_t w, const uint8_t * 
     for(;c = *str; str++) {
         if(c == ' ') {
             uint8_t* ptr = str + 1;
-            while(*ptr && *ptr != ' ') {
+            while(*ptr && *ptr != ' ' && *ptr != '\n') {
                 ptr ++;
             }
             if((ptr - str) * 4 + x_off > w) {
@@ -53,15 +53,14 @@ void Jaylib::smallPrintWrapped(uint8_t x, uint8_t y, uint8_t w, const uint8_t * 
                 continue;
             }
             x_off += 2;
-            continue;
         } else if(c == '\n') {
             x_off = 0;
             y_off += 6;
-            continue;
+        } else {
+            c -= 32;
+            drawBand(x + x_off, y + y_off, PRINTABLE_CHARS + 3 * c, 3, color);
+            x_off += 4;
         }
-        c -= 32;
-        drawBand(x + x_off, y + y_off, PRINTABLE_CHARS + 3 * c, 3, color);
-        x_off += 4;
     }
 }
 
