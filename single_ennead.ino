@@ -33,7 +33,7 @@ void setup() {
     //collection.deleteCard(99);
     /*
     for(int i = 1; i <= 100; i ++) {
-        if( i < 50)
+        if( i <= 100)
             collection.addCard(i);
         else
             collection.deleteCard(i);

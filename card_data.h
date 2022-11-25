@@ -4,7 +4,7 @@
     {{0x##a1,0x##a2,0x##a3,0x##a4,0x##a5,0x##a6,0x##a7,0x##a8},0x##e,0x##s}
 
 PROGMEM const CardData CARDS [] = {
-    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,aaaa), // Missing No
+    CC(ff,ff,ff,ff,ff,ff,ff,ff, 00,0000), // Missing No
     CC(01,06,78,89,8e,88,88,70, 35,1135), // Ant
     CC(1c,22,e1,a1,a1,e1,22,1c, 23,1621), // Mushroom
     CC(78,84,82,81,85,89,8a,74, 25,4114), // Goo
@@ -114,6 +114,8 @@ PROGMEM const CardData CARDS [] = {
     CC(70,8e,89,89,8a,9d,72,3c, 15,9A5A), // The Pope
     CC(7e,8f,85,88,88,85,7f,3e, 25,A5AA), // Demon
     CC(02,75,8d,85,85,8d,75,02, 25,AAAA), // Angel
+
+    CC(3c,42,81,81,81,81,42,3c, 24,BBBB), // DEATH
 };
 
 PROGMEM const char CARD_NAME_000[] = "Missing No";
@@ -217,6 +219,7 @@ PROGMEM const char CARD_NAME_097[] = "King Midas";
 PROGMEM const char CARD_NAME_098[] = "The Pope";
 PROGMEM const char CARD_NAME_099[] = "Beelzebub";
 PROGMEM const char CARD_NAME_100[] = "Azrael";
+PROGMEM const char CARD_NAME_101[] = "Death";
 
 #define CN(n) \
     CARD_NAME_##n##0,CARD_NAME_##n##1,CARD_NAME_##n##2,CARD_NAME_##n##3,CARD_NAME_##n##4, \
@@ -224,7 +227,7 @@ PROGMEM const char CARD_NAME_100[] = "Azrael";
 
 PROGMEM char *const CARD_NAMES [] = {
     CN(00), CN(01), CN(02), CN(03), CN(04), CN(05), CN(06), CN(07), CN(08), CN(09),
-    CARD_NAME_100,
+    CARD_NAME_100, CARD_NAME_101,
 };
 
 PROGMEM const char CARD_FLAVOR_000[] = "FLAVOR";
@@ -328,6 +331,7 @@ PROGMEM const char CARD_FLAVOR_097[] = "\"I LOVE GOOOOLD\"";
 PROGMEM const char CARD_FLAVOR_098[] = "CROCODYLUS PONTIFEX";
 PROGMEM const char CARD_FLAVOR_099[] = "SANGUIS BEBIMUS\nCORPUS EDIMUS\nTOLLE CORPUS SATANI\nAVE VERSUS CHRISTUS\nAVE SATANI";
 PROGMEM const char CARD_FLAVOR_100[] = "DOMINUS A DEXTRIS TUIS CONFREGIT IN DIE IRAE SUAE REGES";
+PROGMEM const char CARD_FLAVOR_101[] = "ENDER OF ALL THINGS";
 
 #define CF(n) \
     CARD_FLAVOR_##n##0,CARD_FLAVOR_##n##1,CARD_FLAVOR_##n##2,CARD_FLAVOR_##n##3,CARD_FLAVOR_##n##4, \
@@ -335,5 +339,5 @@ PROGMEM const char CARD_FLAVOR_100[] = "DOMINUS A DEXTRIS TUIS CONFREGIT IN DIE 
 
 PROGMEM char *const CARD_FLAVORS [] = {
     CF(00), CF(01), CF(02), CF(03), CF(04), CF(05), CF(06), CF(07), CF(08), CF(09),
-    CARD_FLAVOR_100,
+    CARD_FLAVOR_100, CARD_FLAVOR_101,
 };

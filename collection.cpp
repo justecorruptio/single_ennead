@@ -116,6 +116,13 @@ void Collection::deselectCard() {
 void Collection::selectAICards() {
 
     uint8_t nc = numCollected();
+    if(nc == 100) { // killscreen
+        for(int i = 0; i < 5; i++) {
+            ai_cards[i] = 101;
+        }
+        return;
+    }
+
     uint8_t min = (nc / 10) * 10 + 1;
     uint8_t max = (nc / 10) * 9 + 21;
     if (max > 100) max = 100;
