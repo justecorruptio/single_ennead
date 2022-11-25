@@ -29,11 +29,11 @@ uint8_t popcount(uint8_t n) {
     return n;
 };
 
-char loadPStrBuf [64];
+char loadPStrBuf [128];
 char * loadPStr(char * pAddr) {
     int i;
     char * ptr = loadPStrBuf;
-    for(i = 0; i < 63; i++) {
+    for(i = 0; i < 127; i++) {
         char c = pgm_read_byte(pAddr + i);
         if(!c) break;
         ptr[i] = c;

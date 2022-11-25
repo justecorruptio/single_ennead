@@ -31,6 +31,9 @@ void setup() {
     jay.initRandomSeed();
 
     //collection.deleteCard(99);
+    //for(int i = 1; i <= 100; i ++) {
+    //    collection.addCard(i);
+    //}
     //collection.setMoney(50000);
     //collection.setRule(RULE_CAPTURE_FALLEN_ACE);
 
